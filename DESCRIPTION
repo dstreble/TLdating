@@ -1,0 +1,39 @@
+Package: TLdating2
+Type: Package
+Title: Tools for thermoluminescences dating
+Version: 0.0.1
+Date: 2015-04-23
+Author: David Strebler
+Maintainer: David Strebler <david.strebler@uni-koeln.de>
+Description: Upgraded version of the TLdating package.
+    A series of function to make thermoluminescence dating using the
+    MAAD or the SAR protocol. This package completes the R package "luminescence."
+License: GPL-3
+Encoding: UTF-8
+Depends:
+    R (>= 2.0.0)
+Imports:
+    methods,
+    Luminescence,
+    gplots
+Collate:
+    'calc_TL.temperature.R'
+    'TLum-class.R'
+    'TLum.Data-class.R'
+    'TLum.BIN.File-class.R'
+    'TLum.Data.Curve-class.R'
+    'TLum.Analysis-class.R'
+    'TLum.Results-class.R'
+    'Risoe.BINfileData2TLum.BIN.File.R'
+    'TLum.BIN.File2Risoe.BINfileData.R'
+    'TLum.BIN.File2TLum.Analysis.R'
+    'RLum.Analysis2TLum.Analysis.R'
+    'TLum.BIN.File2TLum.Data.Curve.R'
+    'TLum.Analysis2TLum.BIN.File.R'
+    'TLdating2-package.R'
+    'mod_extract.TL.R'
+    'mod_update.dType.R'
+    'plot_extract.TL.R'
+    'script_TL.import.R'
+    'script_TL.export.R'
+RoxygenNote: 5.0.1
