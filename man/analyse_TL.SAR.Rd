@@ -26,7 +26,7 @@ analyse_TL.SAR(object, eval.Tmin, eval.Tmax,
 }
 \value{
 The results are plotted using \link{plot_TL.SAR}. \cr
- 
+
  The function also provides an \linkS4class{TLum.Results} containing: \cr
  \describe{
    \item{\code{De.GC}}{
@@ -48,7 +48,7 @@ See details for more information.
 }
 \details{
 This function estimates the equivent dose in thermoluminescence dating using the SAR protocol.
-The equivalent dose is estimated for each disc using the growth curve approaches (QC) (Aitken, 1985) and the dose plateau approach (DP). 
+The equivalent dose is estimated for each disc using the growth curve approaches (QC) (Aitken, 1985) and the dose plateau approach (DP).
 Both approach should provide a similar result. \cr
 
 The Lx/Tx matrix is estimated using \link{calc_TL.LxTx}. \cr
@@ -58,15 +58,15 @@ The plateau test values are estimated using \link{calc_TL.plateau}. \cr
 The rejection criteria are: \cr
 \describe{
  \item{\code{recycling.ratio}}{
-   \link{numeric}: Maximum recycling ratio accepted (in \%).} 
+   \link{numeric}: Maximum recycling ratio accepted (in \%).}
  \item{\code{recuperation.rate}}{
-   \link{numeric}: Maximum recuperation rate accepted (in \%).} 
+   \link{numeric}: Maximum recuperation rate accepted (in \%).}
  \item{\code{paleodose.error}}{
    \link{numeric}: Maximum error accepted on Lx (in \%).}
  \item{\code{testdose.error}}{
-   \link{numeric}: Maximum error accepted on Tx (in \%).} 
- } 
- 
+   \link{numeric}: Maximum error accepted on Tx (in \%).}
+ }
+
 \bold{Fitting parameters} \cr
 The fitting parameters are:  \cr
 \describe{
@@ -85,7 +85,7 @@ See also \link{calc_TL.SAR.fit}. \cr
 The plotting parameters are:  \cr
 \describe{
  \item{\code{plot.Tmin}}{
-   \link{numeric}: lowest temperature plotted.} 
+   \link{numeric}: lowest temperature plotted.}
  \item{\code{plot.Tmax}}{
    \link{numeric}: highest temperature plotted.}
  \item{\code{no.plot}}{
@@ -98,13 +98,13 @@ David Strebler, University of Cologne (Germany), \cr David Strebler
 }
 \references{
 Aitken, M.J. (1985) Thermoluminescence Dating, Academic Press, London \cr
- 
+
  Murray & Wintle (2000). Luminescence dating of quartz using an improved single-aliquot regenerative-dose protocol. Radiation Measurements, Vol.32, No.1, p.57-73. \cr
 }
 \seealso{
-\link{calc_TL.LxTx}, 
+\link{calc_TL.LxTx},
  \link{calc_TL.plateau},
- \link{calc_TL.SAR.fit}, 
+ \link{calc_TL.SAR.fit},
  \link{analyse_TL.MAAD}.
 }
 

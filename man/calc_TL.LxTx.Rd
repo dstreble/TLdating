@@ -38,7 +38,7 @@ The function provides an \linkS4class{TLum.Results} containing: \cr
 }
 \description{
 Internal function called by \link{analyse_TL.MAAD} and \link{analyse_TL.SAR}. \cr
-This function separates the Lx matrix from the Tx matrix. 
+This function separates the Lx matrix from the Tx matrix.
 Then, it estimates the Lx/Tx matrix.
 It also provides a name for each of the curves. \cr
 }
@@ -47,11 +47,11 @@ David Strebler, University of Cologne (Germany).
 }
 \references{
 Aitken, M.J. (1985) Thermoluminescence Dating, Academic Press, London \cr
- 
+
  Murray & Wintle (2000). Luminescence dating of quartz using an improved single-aliquot regenerative-dose protocol. Radiation Measurements, Vol.32, No.1, p.57-73. \cr
 }
 \seealso{
-\link{analyse_TL.MAAD}, 
+\link{analyse_TL.MAAD},
  \link{analyse_TL.SAR}.
 }
 

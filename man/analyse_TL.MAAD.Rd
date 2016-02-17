@@ -26,7 +26,7 @@ analyse_TL.MAAD(object, eval.Tmin, eval.Tmax,
 }
 \value{
 The results are plotted using \link{plot_TL.MAAD}. \cr
- 
+
  The function also provides a \linkS4class{TLum.Results} containing: \cr
  \describe{
    \item{\code{De.GC}}{
@@ -43,14 +43,14 @@ The results are plotted using \link{plot_TL.MAAD}. \cr
 }
 \description{
 Function to estimate the ED in TL dating using the MAAD protocol. \cr
-It provides an estimation of the palaeodose (Q) and/or the sublinearity correction (I). 
+It provides an estimation of the palaeodose (Q) and/or the sublinearity correction (I).
 The equivalent dose (ED) is estimated by the addition of Q and I. \cr
 See details for more information.
 }
 \details{
 This function estimates the equivalent dose for the thermoluminescence dating with the MAAD protocol.
 It can provide an estimation of the palaeodose (Q) and the sublinearity correction (I) simultaniously or separately.
-These are estimated using the growth curve approach (QC) (Aitken, 1985) and the dose plateau approach (DP). 
+These are estimated using the growth curve approach (QC) (Aitken, 1985) and the dose plateau approach (DP).
 Both approaches should provide a similar result. The equivalent dose is estimated by the addition of Q and I\cr
 The Lx/Tx matrix is estimated using \link{calc_TL.LxTx}. \cr
 The average TL curves for each dose step are estimate using \link{calc_TL.MAAD.average}. \cr
@@ -60,11 +60,11 @@ The plateau test values are estimated using \link{calc_TL.plateau}. \cr
 The rejection criteria are: \cr
 \describe{
  \item{\code{testdose.error}}{
-   \link{numeric}: Maximum error accepted on Tx (in \%).} 
+   \link{numeric}: Maximum error accepted on Tx (in \%).}
  \item{\code{paleodose.error}}{
    \link{numeric}: Maximum error accepted on Lx (in \%).}
- } 
- 
+ }
+
 \bold{Fitting parameters} \cr
 The fitting parameters are:  \cr
 \describe{
@@ -89,7 +89,7 @@ See also \link{calc_TL.MAAD.fit.Q} and \link{calc_TL.MAAD.fit.I}. \cr
 The plotting parameters are:  \cr
 \describe{
  \item{\code{plot.Tmin}}{
-   \link{numeric}: Lowest temperature plotted.} 
+   \link{numeric}: Lowest temperature plotted.}
  \item{\code{plot.Tmax}}{
    \link{numeric}: Highest temperature plotted.}
  \item{\code{no.plot}}{
@@ -111,12 +111,12 @@ David Strebler, University of Cologne (Germany)
 Aitken, M.J. (1985) Thermoluminescence Dating, Academic Press, London \cr
 }
 \seealso{
-\link{calc_TL.LxTx}, 
+\link{calc_TL.LxTx},
  \link{calc_TL.plateau},
- \link{calc_TL.MAAD.average}, 
+ \link{calc_TL.MAAD.average},
  \link{calc_TL.MAAD.separate},
- \link{calc_TL.MAAD.fit.I}, 
- \link{calc_TL.MAAD.fit.Q}, 
+ \link{calc_TL.MAAD.fit.I},
+ \link{calc_TL.MAAD.fit.Q},
  \link{analyse_TL.SAR}.
 }
 
