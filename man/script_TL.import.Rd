@@ -53,7 +53,7 @@ The file parameters are:  \cr
 David Strebler, University of Cologne (Germany).
 }
 \seealso{
-\link{readBIN2R},
+\link{read_BIN2R},
  \link{Risoe.BINfileData2TLum.BIN.File},
  \link{TLum.BIN.File2TLum.Analysis},
  \link{mod_extract.TL},

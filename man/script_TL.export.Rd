@@ -35,7 +35,7 @@ It just requires the name of the file and the \linkS4class{TLum.Analysis} object
 David Strebler, University of Cologne (Germany).
 }
 \seealso{
-\link{writeR2BIN},
+\link{write_R2BIN},
  \link{TLum.BIN.File2Risoe.BINfileData},
  \link{TLum.Analysis2TLum.BIN.File}.
 }

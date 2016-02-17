@@ -41,7 +41,7 @@
 #'  This function returns a \code{\linkS4class{TLum.Analysis}} object.
 #'
 #' @seealso
-#'  \link{readBIN2R},
+#'  \link{read_BIN2R},
 #'  \link{Risoe.BINfileData2TLum.BIN.File},
 #'  \link{TLum.BIN.File2TLum.Analysis},
 #'  \link{mod_extract.TL},
@@ -125,7 +125,7 @@ script_TL.import <- function(
   path.in <- paste(folder.in,file.name, file.extension,sep="")
 
   # Read file
-  data.in <- readBIN2R(path.in)
+  data.in <- read_BIN2R(path.in)
 
   data <- Risoe.BINfileData2TLum.BIN.File(object = data.in,
                                           relative.error = relative.error)

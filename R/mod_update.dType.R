@@ -121,7 +121,7 @@ mod_update.dType <- function(
 
       temp.metadata <- temp.curve@metadata
 
-      temp.dtype <- temp.metadata$DTYPE
+      temp.dtype <- tolower(temp.metadata$DTYPE)
       temp.comment <- tolower(temp.metadata$COMMENT)
 
       if(temp.comment %in% V_PREHEAT){
@@ -129,7 +129,7 @@ mod_update.dType <- function(
       }else if( (temp.comment %in% V_TESTDOSE) && (temp.dtype %in% V_DOSE)){
         new.dtype <- C_TESTDOSE
       }else{
-        new.dtype <- temp.dtype
+        new.dtype <- temp.metadata$DTYPE
       }
 
       new.metadata <- temp.metadata

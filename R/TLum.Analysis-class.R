@@ -118,7 +118,8 @@ setMethod("get_structure.TLum.Analysis",
             nRecords <- length(object@records)
 
             id <- vector()
-            nChannel <- vector()
+            nChannels <- vector()
+            recordTypes <- vector()
             Tmax <- vector()
             Tmin <- vector()
 
@@ -136,7 +137,8 @@ setMethod("get_structure.TLum.Analysis",
               temp.temperature <- temp.curve@temperatures
 
               id[i] <- temp.metadata$ID
-              nChannel[i] <- length(temp.data)
+              nChannels[i] <- length(temp.data)
+              recordTypes[i] <- temp.recordType
 
               Tmax[i] <- max(temp.temperature)
               Tmin[i] <- min(temp.temperature)
@@ -144,16 +146,16 @@ setMethod("get_structure.TLum.Analysis",
               Smax[i] <- max(temp.data)
               Smin[i] <- min(temp.data)
 
-              tem.info.elements <- list(names(temp.metadata))
+              temp.info.elements <- list(names(temp.metadata))
 
-              info.elements <- c(info,tem.info.elements)
+              info.elements <- c(info.elements,temp.info.elements)
 
 
             }
 
             ##combine output to a data.frame
             return(data.frame(id=id,
-                              recordType=recordType,
+                              recordType=recordTypes,
                               n.channels=nChannels,
                               x.min=Tmin, x.max=Tmax,
                               y.min=Smin, y.max=Smax,

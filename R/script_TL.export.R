@@ -24,7 +24,7 @@
 #'  This function returns a \code{\linkS4class{TLum.Analysis}} object.
 #'
 #' @seealso
-#'  \link{writeR2BIN},
+#'  \link{write_R2BIN},
 #'  \link{TLum.BIN.File2Risoe.BINfileData},
 #'  \link{TLum.Analysis2TLum.BIN.File}.
 #'
@@ -85,5 +85,5 @@ script_TL.export <- function(
 
   data.out <- TLum.BIN.File2Risoe.BINfileData(data)
 
-  writeR2BIN(object = data.out, file =  path.out)
+  write_R2BIN(object = data.out, file =  path.out)
 }
