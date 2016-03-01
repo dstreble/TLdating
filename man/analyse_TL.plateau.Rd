@@ -23,7 +23,7 @@ This function performs the plateau test for TL curves (Ln/Lx).
 The plotting parameters are:  \cr
 \describe{
  \item{\code{plot.Tmin}}{
-   \link{numeric}: Lowest temperature plotted.} 
+   \link{numeric}: Lowest temperature plotted.}
  \item{\code{plot.Tmax}}{
    \link{numeric}: Highest temperature plotted.}
  \item{\code{no.plot}}{
@@ -38,7 +38,7 @@ David Strebler, University of Cologne (Germany)
 Aitken, M.J. (1985) Thermoluminescence Dating, Academic Press, London \cr
 }
 \seealso{
-\link{calc_TL.LxTx}, 
+\link{calc_TL.LxTx},
  \link{calc_TL.plateau},
  \link{analyse_TL.MAAD}
 }

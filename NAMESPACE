@@ -2,6 +2,7 @@
 
 export(RLum.Analysis2TLum.Analysis)
 export(Risoe.BINfileData2TLum.BIN.File)
+export(TLum.Analysis2RLum.Analysis)
 export(TLum.BIN.File2Risoe.BINfileData)
 export(TLum.BIN.File2TLum.Analysis)
 export(TLum.BIN.File2TLum.Data.Curve)

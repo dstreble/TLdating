@@ -123,6 +123,11 @@ Source: CRAN
 Version: 2014.2-1
 Hash: e83415bd42223413d7cda4a122175043
 
+Package: numOSL
+Source: CRAN
+Version: 1.9
+Hash: 0c29cfeb81d4e54a50f35dfb02605796
+
 Package: openssl
 Source: CRAN
 Version: 0.9.1

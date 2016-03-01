@@ -1,7 +1,7 @@
 Package: TLdating
 Type: Package
 Title: Tools for thermoluminescences dating
-Version: 0.1
+Version: 0.1.0
 Date: 2015-04-23
 Author: David Strebler
 Maintainer: David Strebler <david.strebler@uni-koeln.de>
@@ -61,5 +61,6 @@ Collate:
     'RLum.Analysis2TLum.Analysis.R'
     'TLum.BIN.File2TLum.Data.Curve.R'
     'TLum.Analysis2TLum.BIN.File.R'
+    'TLum.Analysis2RLum.Analysis.R'
     'TLdating2-package.R'
 RoxygenNote: 5.0.1

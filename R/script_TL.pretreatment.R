@@ -173,13 +173,19 @@ script_TL.pretreatment <- function(
   print("Peaks Shifted")
 
   #Saving of preliminary results
-  path.out <-  paste(folder.out,"new_",file.name,file.extension,sep="")
 
-  data.out <- TLum.Analysis2TLum.BIN.File(data)
-  data.out <- TLum.BIN.File2Risoe.BINfileData(data.out)
+  file.out <- paste("new_",file.name,sep="")
+  script_TL.export(object = data,
+                   file.name = file.out,
+                   file.parameters = file.parameters)
 
-  write_R2BIN(object = data.out,
-              file =  path.out)
+  # path.out <-  paste(folder.out,"new_",file.name,file.extension,sep="")
+  #
+  # data.out <- TLum.Analysis2TLum.BIN.File(data)
+  # data.out <- TLum.BIN.File2Risoe.BINfileData(data.out)
+  #
+  # write_R2BIN(object = data.out,
+  #             file =  path.out)
 
   print("File saved")
 
