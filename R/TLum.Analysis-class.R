@@ -2,45 +2,41 @@
 #'
 #' Object class containing analysis data for protocol analysis.
 #'
-#'
 #' @name TLum.Analysis-class
 #' @rdname TLum.Analysis-class
 #'
-#' @aliases TLum.Analysis-class
-#' show,TLum.Analysis-method
-#' set_TLum.Analysis set_TLum.Analysis,TLum.Analysis-method set_TLum.Analysis,list-method
-#' get_TLum.Analysis get_TLum.Analysis-methods get_TLum.Analysis,TLum.Analysis-method get_structure.TLum.Analysis get_structure.TLum.Analysis,TLum.Analysis-method length_TLum.Analysis
-#' length_TLum.Analysis-methods length_TLum.Analysis,TLum.Analysis-method
+#' @slot protocol
+#'  \link{character}: Protocol used for the analysis.
+#' @slot records
+#'  \link{list}: \linkS4class{TLum.Data.Curve} included in the analysis.
 #'
-#' @docType class
-#'
-#' @author David Strebler
+#' @note The code and the structure of this class is based on the \linkS4class{RLum.Analysis} class from the \link{Luminescence} package.
 #'
 #' @keywords classes
+#'
+#' @author David Strebler
 #'
 #' @exportClass TLum.Analysis
 
 
 # class definition
-setClass("TLum.Analysis",
-         representation(
-           records = "list",
-           protocol = "character"
-         ),
+setClass(Class= "TLum.Analysis",
          contains = "TLum",
-         prototype = list (
-           records = list(),
-           protocol = character()
-         ),
-         S3methods = FALSE
-)
+         slots= c(records = "list",
+                  protocol = "character"),
+         prototype = list (records = list(),
+                           protocol = "UNKNOWN")
+         )
 
 
 # show method for object -------------------------------------------------------
 
+#' @rdname TLum.Analysis-class
+#' @aliases show,TLum.Analysis-method
+
 setMethod("show",
-          signature(object = "TLum.Analysis"),
-          function(object){
+          signature= "TLum.Analysis",
+          definition=function(object){
 
             protocol <- object@protocol
             nRecords <- length(object@records)
@@ -97,78 +93,24 @@ setMethod("show",
           }
 )##end show method
 
-# get object structure ----------------------------------------------------
-
-##method to show the object structure
-setGeneric("get_structure.TLum.Analysis",
-           function(object) {standardGeneric("get_structure.TLum.Analysis")})
-
-setMethod("get_structure.TLum.Analysis",
-          signature=signature(object = "TLum.Analysis"),
-          definition = function(object) {
-
-            ##check if the object containing other elements than allowed
-            if(length(grep(FALSE, sapply(object@records, is, class="TLum.Data.Curve")))!=0){
-
-              stop("[get_structure.TLum.Analysis()]  Only 'TLum.Data.Curve' objects are allowed!" )
-
-            }
-
-            ##get length object
-            nRecords <- length(object@records)
-
-            id <- vector()
-            nChannels <- vector()
-            recordTypes <- vector()
-            Tmax <- vector()
-            Tmin <- vector()
-
-            Smax <- vector()
-            Smin <- vector()
-
-            info.elements <- list()
-
-            for (i in 1:nRecords){
-              temp.curve <- object@records[[i]]
-
-              temp.recordType <- temp.curve@recordType
-              temp.metadata <- temp.curve@metadata
-              temp.data <- temp.curve@data
-              temp.temperature <- temp.curve@temperatures
-
-              id[i] <- temp.metadata$ID
-              nChannels[i] <- length(temp.data)
-              recordTypes[i] <- temp.recordType
-
-              Tmax[i] <- max(temp.temperature)
-              Tmin[i] <- min(temp.temperature)
-
-              Smax[i] <- max(temp.data)
-              Smin[i] <- min(temp.data)
-
-              temp.info.elements <- list(names(temp.metadata))
-
-              info.elements <- c(info.elements,temp.info.elements)
-
-
-            }
-
-            ##combine output to a data.frame
-            return(data.frame(id=id,
-                              recordType=recordTypes,
-                              n.channels=nChannels,
-                              x.min=Tmin, x.max=Tmax,
-                              y.min=Smin, y.max=Smax,
-                              info.elements=info.elements))
-
-          })
-
-
 # constructor (set) method for object class ------------------------------------------
+
+#' @name TLum.Analysis-class
+#' @rdname TLum.Analysis-class
+#'
+#' @param records
+#'  \link{list}: list of \linkS4class{TLum.Data.Curve} objects
+#' @param protocol
+#'  \link{character}: protocol type for analysis object.
+#'
+#' @exportMethod set_TLum.Analysis
 
 setGeneric("set_TLum.Analysis",
            function(records, protocol) {standardGeneric("set_TLum.Analysis")})
 
+
+#' @rdname TLum.Analysis-class
+#' @aliases set_TLum.Analysis set_TLum.Analysis,TLum.Analysis-method
 
 setMethod(f = "set_TLum.Analysis",
           signature = c(records = "list",
@@ -188,12 +130,34 @@ setMethod(f = "set_TLum.Analysis",
             )
           })
 
-# constructor (set) method for object class ------------------------------------------
+# constructor (get) method for object class ------------------------------------------
+
+#' @name TLum.Analysis-class
+#' @rdname TLum.Analysis-class
+#'
+#' @param object
+#'  \linkS4class{TLum.Analysis}: an object of class TLum.Analysis.
+#' @param record.id
+#'  \link{numeric}: IDs of specific records.
+#' @param recordType
+#'  \link{character}: record type.
+#' @param curveType
+#'  \link{character}: curve type.
+#' @param TLum.type
+#'  \link{character}: TLum object type.
+#' @param get.index
+#'  \link{logical}: return a numeric vector with the index of each element in the TLum.Analysis object.
+#' @param keep.object
+#'  \link{logical}: return a TLum.Analysis object.
+#'
+#' @exportMethod get_TLum.Analysis
 
 setGeneric("get_TLum.Analysis",
-           function(object, record.id, recordType, curveType, TLum.type, info.object, get.index, keep.object = FALSE) {
+           function(object, record.id, recordType, curveType, TLum.type, get.index, keep.object = FALSE) {
              standardGeneric("get_TLum.Analysis")})
 
+#' @rdname TLum.Analysis-class
+#' @aliases get_TLum.Analysis get_TLum.Analysis,TLum.Analysis-method
 
 setMethod("get_TLum.Analysis",
           signature = c(object = "TLum.Analysis",
@@ -201,11 +165,10 @@ setMethod("get_TLum.Analysis",
                         recordType = "ANY",
                         curveType = "ANY",
                         TLum.type = "ANY",
-                        info.object = "ANY",
                         get.index = "ANY",
                         keep.object = "ANY"),
 
-          function(object, record.id, recordType, curveType, TLum.type, info.object, get.index, keep.object = FALSE){
+          function(object, record.id, recordType, curveType, TLum.type, get.index, keep.object = FALSE){
 
             ##record.id
             if(missing(record.id)){
@@ -394,19 +357,5 @@ setMethod("get_TLum.Analysis",
               }
             }
 
-
-          })
-
-# constructor (length) method for object class ------------------------------------------
-
-setGeneric("length_TLum.Analysis",
-           function(object) {
-             standardGeneric("length_TLum.Analysis")})
-
-setMethod("length_TLum.Analysis",
-          signature(object = "TLum.Analysis"),
-          function(object){
-
-            length(object@records)
 
           })

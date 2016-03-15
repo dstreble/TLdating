@@ -10,8 +10,38 @@
 \alias{set_TLum.Results,TLum.Results-method}
 \alias{show,TLum.Results-method}
 \title{Class \code{"TLum.Results"}}
+\usage{
+\S4method{show}{TLum.Results}(object)
+
+set_TLum.Results(originator, data)
+
+\S4method{set_TLum.Results}{ANY,list}(originator, data)
+
+get_TLum.Results(object, ref)
+
+\S4method{get_TLum.Results}{TLum.Results}(object, ref)
+}
+\arguments{
+\item{object}{\linkS4class{TLum.Results}:  object to be evaluated.}
+
+\item{originator}{\link{character}: : contains the name of the calling function.}
+
+\item{data}{\link{list}:  the data to be stored in the object.}
+
+\item{ref}{\link{character}: name of the 'data' slot to be returned.}
+}
 \description{
 Object class contains results data from functions.
+}
+\section{Slots}{
+
+\describe{
+\item{\code{originator}}{\link{character}: contains the name of the calling function (the function that produces this object).}
+
+\item{\code{data}}{\link{list}: a list containing the data to be stored in the object.}
+}}
+\note{
+The code and the structure of this class is based on the \linkS4class{RLum.Results} class from the \link{Luminescence} package.
 }
 \author{
 David Strebler

@@ -6,16 +6,13 @@
 #' @name TLum.Data-class
 #' @rdname TLum.Data-class
 #'
-#' @docType class
-#'
-#' @author David Strebler
+#' @note The code and the structure of this class is based on the \linkS4class{RLum.Data} class from the \link{Luminescence} package.
 #'
 #' @keywords classes
 #'
+#' @author David Strebler
+#'
 #' @exportClass TLum.Data
 
-
 setClass("TLum.Data",
-         representation(),
-         contains = "TLum"
-         )
+         contains = "TLum")

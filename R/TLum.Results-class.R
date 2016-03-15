@@ -6,35 +6,34 @@
 #' @name TLum.Results-class
 #' @rdname TLum.Results-class
 #'
-#' @aliases TLum.Results-class
-#' show,TLum.Results-method
-#' set_TLum.Results set_TLum.Results,TLum.Results-method set_TLum.Results,ANY,list-method
-#' get_TLum.Results get_TLum.Results,TLum.Results-method
+#' @slot originator
+#'  \link{character}: contains the name of the calling function (the function that produces this object).
+#' @slot data
+#'  \link{list}: a list containing the data to be stored in the object.
 #'
-#' @docType class
-#'
-#' @author David Strebler
+#' @note The code and the structure of this class is based on the \linkS4class{RLum.Results} class from the \link{Luminescence} package.
 #'
 #' @keywords classes
+#'
+#' @author David Strebler
 #'
 #' @exportClass TLum.Results
 
 
 ##class definition
-setClass("TLum.Results",
-         representation(originator = "character",
-                        data = "list"
-                        ),
+setClass(Class="TLum.Results",
          contains = "TLum",
-         prototype = list (
-           originator = character(),
-           data = list()
-         ),
-         S3methods=TRUE
-)
+         slots = c(originator = "character",
+                   data = "list"),
+         prototype = list(originator = character(),
+                          data = list())
+         )
 
 
 # show method for object ------------------------------------------------------
+
+#' @rdname TLum.Results-class
+#' @aliases show,TLum.Results-method
 
 setMethod("show",
           signature(object = "TLum.Results"),
@@ -69,8 +68,21 @@ setMethod("show",
 
 # constructor (set) method for object class -------------------------------
 
+#' @name TLum.Results-class
+#' @rdname TLum.Results-class
+#'
+#' @param originator
+#'  \link{character}: : contains the name of the calling function.
+#' @param data
+#'  \link{list}:  the data to be stored in the object.
+#'
+#' @exportMethod set_TLum.Results
+
 setGeneric("set_TLum.Results",
            function(originator, data) {standardGeneric("set_TLum.Results")})
+
+#' @rdname TLum.Results-class
+#' @aliases set_TLum.Results set_TLum.Results,TLum.Results-method
 
 setMethod(f = "set_TLum.Results",
           signature = c(originator = "ANY",
@@ -97,9 +109,21 @@ setMethod(f = "set_TLum.Results",
 
 # GetMethods --------------------------------------------------------------
 
+#' @name TLum.Results-class
+#' @rdname TLum.Results-class
+#'
+#' @param object
+#'  \linkS4class{TLum.Results}:  object to be evaluated.
+#' @param ref
+#'  \link{character}: name of the 'data' slot to be returned.
+#'
+#' @exportMethod get_TLum.Results
 
 setGeneric("get_TLum.Results",
            function(object, ref) {standardGeneric("get_TLum.Results")})
+
+#' @rdname TLum.Results-class
+#' @aliases get_TLum.Results get_TLum.Results,TLum.Results-method
 
 setMethod("get_TLum.Results",
           signature=signature(object = "TLum.Results",

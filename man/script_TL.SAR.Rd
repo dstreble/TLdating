@@ -126,7 +126,7 @@ See also \link{plot_TL.SAR}. \cr
 David Strebler, University of Cologne (Germany).
 }
 \seealso{
-\link{readBIN2R},
+\link{read_BIN2R},
  \link{Risoe.BINfileData2TLum.BIN.File},
  \link{mod_extract.TL},
  \link{mod_update.dType},
@@ -134,7 +134,7 @@ David Strebler, University of Cologne (Germany).
  \link{mod_remove.preheat},
  \link{mod_substract.background},
  \link{mod_align.peaks},
- \link{writeR2BIN},
+ \link{write_R2BIN},
  \link{TLum.BIN.File2TLum.Analysis} and
  \link{analyse_TL.SAR}.
 }
