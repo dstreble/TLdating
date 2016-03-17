@@ -109,7 +109,7 @@
 #'  }
 #'
 #' @seealso
-#'  \link{readBIN2R},
+#'  \link{read_BIN2R},
 #'  \link{Risoe.BINfileData2TLum.BIN.File},
 #'  \link{mod_extract.TL},
 #'  \link{mod_update.dType},
@@ -117,7 +117,7 @@
 #'  \link{mod_remove.preheat},
 #'  \link{mod_substract.background},
 #'  \link{mod_align.peaks},
-#'  \link{writeR2BIN},
+#'  \link{write_R2BIN},
 #'  \link{TLum.BIN.File2TLum.Analysis} and
 #'  \link{analyse_TL.SAR}.
 #'

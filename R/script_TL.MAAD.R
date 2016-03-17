@@ -118,7 +118,7 @@
 #'  \link{mod_remove.preheat},
 #'  \link{mod_substract.background},
 #'  \link{mod_align.peaks},
-#'  \link{writeR2BIN},
+#'  \link{write_R2BIN},
 #'  \link{TLum.BIN.File2TLum.Analysis} and
 #'  \link{analyse_TL.MAAD}.
 #'

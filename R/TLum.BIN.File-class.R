@@ -6,36 +6,41 @@
 #' @name TLum.BIN.File-class
 #' @rdname TLum.BIN.File-class
 #'
-#' @aliases TLum.BIN.File-class
-#' coerce,TLum.BIN.File-method
-#' show,TLum.BIN.File-method
-#' set_TLum.BIN.Filee set_TLum.BIN.File-methods set_TLum.BIN.File,TLum.BIN.File-method set_TLum.BIN.File,ANY-method
-#' get_TLum.BIN.File get_TLum.BIN.File-methods get_TLum.BIN.File,ANY-method
+#' @slot METADATA
+#'  \link{data.frame}: Object containing the meta information for each curve.
+#' @slot DATA
+#'  \link{list}: Object containing numeric vector with count data.
+#' @slot ERROR
+#'   \link{list}: Object containing numeric vector with count data absolute uncertainty.
+#' @slot .RESERVED
+#'   \link{list}: Object containing list of undocumented raw values for internal use only.
+#' @keywords classes
 #'
-#' @docType class
+#' @note The code and the structure of this class is based on the \linkS4class{Risoe.BINfileData} class from the \link{Luminescence} package.
 #'
 #' @author David Strebler
 #'
-#' @keywords classes
 #'
 #' @exportClass TLum.BIN.File
 #'
 
-setClass("TLum.BIN.File",
-         representation = list(METADATA = "data.frame",
-                               DATA = "list",
-                               ERROR = "list",
-                               .RESERVED = "list"
-                               ),
+setClass(Class = "TLum.BIN.File",
          contains = "TLum",
+         slots= c(METADATA = "data.frame",
+                  DATA = "list",
+                  ERROR = "list",
+                  .RESERVED = "list"),
          prototype = list(METADATA = data.frame(),
                           DATA=list(),
                           ERROR=list(),
-                          .RESERVED = list()
-                          )
+                          .RESERVED = list())
          )
 
 # Show
+
+#' @rdname TLum.BIN.File-class
+#' @aliases show,TLum.BIN.File-method
+
 setMethod(f = "show",
           signature = "TLum.BIN.File",
           definition = function(object){
@@ -77,9 +82,27 @@ setMethod(f = "show",
           })
 
 #set
+
+#' @name TLum.BIN.File-class
+#' @rdname TLum.BIN.File-class
+#'
+#' @param METADATA
+#'  \link{data.frame}: Object containing the meta information for each curve.
+#' @param DATA
+#'  \link{list}: Object containing numeric vector with count data.
+#' @param ERROR
+#'   \link{list}: Object containing numeric vector with count data absolute uncertainty.
+#' @param .RESERVED
+#'   \link{list}: Object containing list of undocumented raw values for internal use only.
+#'
+#' @exportMethod set_TLum.BIN.File
+
 setGeneric(name = "set_TLum.BIN.File",
            def = function(METADATA, DATA, ERROR, .RESERVED) {standardGeneric("set_TLum.BIN.File")}
            )
+
+#' @rdname TLum.BIN.File-class
+#' @aliases set_TLum.BIN.File set_TLum.BIN.File,TLum.BIN.File-method
 
 setMethod(f = "set_TLum.BIN.File",
           signature = c(METADATA = "data.frame", DATA = "list", ERROR = "list", .RESERVED = "ANY"),
@@ -99,8 +122,20 @@ setMethod(f = "set_TLum.BIN.File",
           })
 
 #get
+
+#' @name TLum.BIN.File-class
+#' @rdname TLum.BIN.File-class
+#'
+#' @param object
+#'  \linkS4class{TLum.BIN.File}: an object of class 'TLum.BIN.File'.
+#'
+#' @exportMethod get_TLum.BIN.File
+
 setGeneric("get_TLum.BIN.File",
            function(object) {standardGeneric("get_TLum.BIN.File")})
+
+#' @rdname TLum.BIN.File-class
+#' @aliases get_TLum.BIN.File get_TLum.BIN.File,TLum.BIN.File-method
 
 setMethod("get_TLum.BIN.File",
           signature=signature(object = "TLum.BIN.File"),

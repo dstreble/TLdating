@@ -7,6 +7,9 @@
 \description{
 Generalized virtual data class for luminescence data.
 }
+\note{
+The code and the structure of this class is based on the \linkS4class{RLum.Data} class from the \link{Luminescence} package.
+}
 \author{
 David Strebler
 }

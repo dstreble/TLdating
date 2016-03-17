@@ -1,11 +1,11 @@
 #' Tools for Thermoluminescences Dating
 #'
 #' A series of functions for thermoluminescence dating using the MAAD or the
-#' SAR protocol. This package adds to the R package 'Luminescence'.
+#' SAR protocol. This package adds to the R package \link{Luminescence}.
 #'
 #' \tabular{ll}{  Package: \tab TLdating \cr
 #'                Type: \tab Package\cr
-#'                Version: \tab 0.1.0 \cr
+#'                Version: \tab 0.1.1 \cr
 #'                Date: \tab 2016-03-01 \cr
 #'                License: \tab GPL-3
 #'             }
@@ -49,7 +49,11 @@
 #'  \email{david.strebler@uni-koeln.de}
 #'
 #'  \bold{Acknowledgement} \cr
-#'  This project is realized in the context of the CRC 806 “Our Way to Europe” (\url{http://www.sfb806.uni-koeln.de/}) which is funded by the German Research foundation (DFG). \cr
+#'  This project is realized in the context of the CRC 806 “Our Way to Europe” (\url{http://www.sfb806.uni-koeln.de/})
+#'  which is funded by the German Research foundation (DFG). \cr
+#'  The code and the structure of this package is partially based on those from the R package \link{Luminescence}
+#'  version 0.5.1 developed by S. Kreutzer, M. Dietze, C. Burow, M.C. Fuchs, C. Schmidt, M. Fisher
+#'  and R.K. Smedley. \cr
 #'
 ## @references
 #'
