@@ -19,8 +19,8 @@
 #'  \link{list} (with default): list containing the plotting parameters. See details.
 #' @param rejection.criteria
 #'  \link{list} (with default): list containing the rejection criteria (in \%). See details.
-#' @param relative.error
-#'  \link{numeric} (with default): Relative error of the TL signals.
+#' @param k
+#'  \link{numeric} (with default): Corrective factor for estimating the uncertainties using a poisson distribution.
 #' @param remove.discs
 #'  \link{numeric}  (with default): list containing the position of the aliquots to shall be removed.
 #'
@@ -56,7 +56,7 @@
 #'  \item{\code{fit.weighted}}{
 #'    \link{logical}: If the fitting is weighted or not.}
 #'  \item{\code{fit.use.slope}}{
-#'    \link{logical}: If the slope of the Q growth curve is reused for the sublinearity correction.}
+#'    \link{logical}: If the slope of the Q growth curve is reused for the supralinearity correction.}
 #'  \item{\code{fit.aDoses.min}}{
 #'    \link{numeric}: Lowest additive dose used for the fitting.}
 #'  \item{\code{fit.aDoses.max}}{
@@ -134,7 +134,7 @@ script_TL.MAAD <- function(
 
   eval.Tmax,
 
-  relative.error= 0.05,
+  k= 1,
 
   remove.discs=NULL,
 
@@ -184,8 +184,8 @@ script_TL.MAAD <- function(
     stop("[script_TL.MAAD] Error: Input 'eval.Tmax' is not of type 'numeric'.")
   }
 
-  if(!is.numeric(relative.error)){
-    stop("[script_TL.MAAD] Error: Input 'relative.error' is not of type 'numeric'.")
+  if(!is.numeric(k)){
+    stop("[script_TL.MAAD] Error: Input 'k' is not of type 'numeric'.")
   }
 
   if(!is.list(file.parameters)){
@@ -215,7 +215,7 @@ script_TL.MAAD <- function(
 
   # data recovery and pretreatment
   data <- script_TL.pretreatment(file.name = file.name,
-                                 relative.error = relative.error,
+                                 k = k,
                                  remove.discs = remove.discs,
                                  file.parameters = file.parameters,
                                  aligning.parameters = aligning.parameters,
@@ -240,9 +240,24 @@ script_TL.MAAD <- function(
   De.values.GC <- data.frame(De=temp.De.GC$De,
                              De.error=temp.De.GC$De.error)
 
+  Q.DP <- data.frame(Q=temp.De.DP$Q,
+                     Q.error=temp.De.DP$Q.error)
+
+  I.DP <- data.frame(I=temp.De.DP$I,
+                     I.error=temp.De.DP$I.error)
+
+  Q.GC <- data.frame(Q=temp.De.GC$Q,
+                     Q.error=temp.De.GC$Q.error)
+
+  I.GC <- data.frame(I=temp.De.GC$I,
+                     I.error=temp.De.GC$I.error)
+
   result <- list(De.values.DP = De.values.DP,
-                 De.values.GC = De.values.GC
-  )
+                 De.values.GC = De.values.GC,
+                 Q.DP = Q.DP,
+                 I.DP = I.DP,
+                 Q.GC = Q.GC,
+                 I.GC = I.GC)
 
   return(result)
 }

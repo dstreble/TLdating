@@ -4,12 +4,11 @@
 \alias{script_TL.SAR}
 \title{Easy script for the SAR protocol}
 \usage{
-script_TL.SAR(file.name, eval.Tmin, eval.Tmax, relative.error = 0.05,
-  remove.discs = NULL, file.parameters = list(file.extension = ".binx",
-  folder.in = "./", folder.out = "./"), aligning.parameters = list(peak.Tmin =
-  NULL, peak.Tmax = NULL, no.testdose = FALSE),
-  fitting.parameters = list(fit.method = "LIN", fit.weighted = FALSE,
-  fit.rDoses.min = 0, fit.rDoses.max = NA),
+script_TL.SAR(file.name, eval.Tmin, eval.Tmax, k = 1, remove.discs = NULL,
+  file.parameters = list(file.extension = ".binx", folder.in = "./",
+  folder.out = "./"), aligning.parameters = list(peak.Tmin = NULL, peak.Tmax =
+  NULL, no.testdose = FALSE), fitting.parameters = list(fit.method = "LIN",
+  fit.weighted = FALSE, fit.rDoses.min = 0, fit.rDoses.max = NA),
   plotting.parameters = list(plot.Tmin = 0, plot.Tmax = NA, no.plot = FALSE),
   rejection.criteria = list(recycling.ratio = 10, recuperation.rate = 10,
   testdose.error = 10, paleodose.error = 10))
@@ -21,7 +20,7 @@ script_TL.SAR(file.name, eval.Tmin, eval.Tmax, relative.error = 0.05,
 
 \item{eval.Tmax}{\link{integer} (\bold{required}): Temperature (°C) of the upper boundary for the signal integration.}
 
-\item{relative.error}{\link{numeric} (with default): Relative error of the TL signals.}
+\item{k}{\link{numeric} (with default): Corrective factor for estimating the uncertainties using a poisson distribution.}
 
 \item{remove.discs}{\link{numeric}  (with default): list containing the position of the aliquots that shall be removed}
 

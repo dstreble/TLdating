@@ -28,6 +28,10 @@ This function provides a new \code{\linkS4class{TLum.Results}} object containing
 \description{
 This function calculates the temperature vector.
 }
+\details{
+\bold{Warning}: This function is an internal function and should not be used except for development purposes.
+ Internal functions can be heavily modified and even renamed or removed in new version of the package.
+}
 \author{
 David Strebler, University of Cologne (Germany).
 }

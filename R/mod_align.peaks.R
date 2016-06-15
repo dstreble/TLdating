@@ -224,6 +224,8 @@ mod_align.peaks <- function(
   new.TL <- vector()
   new.TL.error <- vector()
 
+  new.shift <- vector()
+
   for(i in 1:nRecords){
 
     temp.record <- object@records[[i]]
@@ -245,6 +247,7 @@ mod_align.peaks <- function(
       temp.shift <- 0     # Do not shift BG signal or a signal with very low intensity (<120 counts/channel)
     }
 
+    new.shift[i] <- temp.shift
 
     #Peak shifting
     temp.new.curve <- integer()
@@ -300,6 +303,8 @@ mod_align.peaks <- function(
 
     temp.record@data <- new.TL[,i]
     temp.record@error <- new.TL.error[,i]
+
+    temp.record@metadata$SHIFT <- new.shift[i]
 
     new.records <- c(new.records, temp.record)
 

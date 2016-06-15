@@ -7,10 +7,11 @@
 plot_TL.MAAD(sample.name, temperatures, eval.Tmin, eval.Tmax, aNames, aDoses,
   aLx, aTx, aLxTx, aLx.plateau, aTx.plateau, aLxTx.plateau, rNames, rDoses, rLx,
   rTx, rLxTx, rLx.plateau, rTx.plateau, rLxTx.plateau, DP.Q.line,
-  DP.Q.line.error, GC.Q.line, GC.Q.slope, GC.Q.LxTx, GC.Q.LxTx.error, DP.I.line,
-  DP.I.line.error, GC.I.line, GC.I.slope, GC.I.LxTx, GC.I.LxTx.error, Q.DP,
-  Q.DP.error, Q.GC, Q.GC.error, I.DP, I.DP.error, I.GC, I.GC.error, De.GC,
-  De.GC.error, De.DP, De.DP.error, rejection.values, fitting.parameters,
+  DP.Q.line.error, GC.Q.line, GC.Q.slope, GC.Q.LxTx, GC.Q.LxTx.error,
+  GC.Q.doses, GC.Q.names, DP.I.line, DP.I.line.error, GC.I.line, GC.I.slope,
+  GC.I.LxTx, GC.I.LxTx.error, GC.I.doses, GC.I.names, Q.DP, Q.DP.error, Q.GC,
+  Q.GC.error, I.DP, I.DP.error, I.GC, I.GC.error, De.GC, De.GC.error, De.DP,
+  De.DP.error, rejection.values, fitting.parameters,
   plotting.parameters = list(plot.Tmin = 0, plot.Tmax = NA))
 }
 \arguments{
@@ -66,6 +67,10 @@ plot_TL.MAAD(sample.name, temperatures, eval.Tmin, eval.Tmax, aNames, aDoses,
 
 \item{GC.Q.LxTx.error}{\link{numeric} (\bold{required}): Error on the Lx/tx vector used for Q estimation using the growth curve approach.}
 
+\item{GC.Q.doses}{\link{numeric} (\bold{required}): Doses used for Q estimation using the growth curve approach.}
+
+\item{GC.Q.names}{\link{numeric} (\bold{required}): Names of the Lx/tx vector used for Q estimation using the growth curve approach.}
+
 \item{DP.I.line}{\link{numeric} (\bold{required}): Vector containing I for each temperature step.}
 
 \item{DP.I.line.error}{\link{numeric} (\bold{required}): Vector containing the uncertainty on I for each temperature step.}
@@ -77,6 +82,10 @@ plot_TL.MAAD(sample.name, temperatures, eval.Tmin, eval.Tmax, aNames, aDoses,
 \item{GC.I.LxTx}{\link{numeric} (\bold{required}): Lx/tx vector used for I estimation using the growth curve approach.}
 
 \item{GC.I.LxTx.error}{\link{numeric} (\bold{required}): Error on the Lx/tx vector used for I estimation using the growth curve approach.}
+
+\item{GC.I.doses}{\link{numeric} (\bold{required}): Doses used for I estimation using the growth curve approach.}
+
+\item{GC.I.names}{\link{numeric} (\bold{required}): Names of the Lx/Tx vector used for I estimation using the growth curve approach.}
 
 \item{Q.DP}{\link{numeric} (\bold{required}): Q estimation using the dose plateau approach}
 
@@ -112,7 +121,7 @@ plot_TL.MAAD(sample.name, temperatures, eval.Tmin, eval.Tmax, aNames, aDoses,
 This function plots the results for \link{analyse_TL.MAAD}.
 The first page regroups all the information about the additive curves (names, doses, intensity vs. temperature and plateau test for Lx, Tx and Lx/Tx).
 The second page regroups all the information about the regenerative curves (names, doses, intensity vs. temperature and plateau test for Lx, Tx and Lx/Tx).
-The third page regroups all the information about the equivalent dose (dose plateau for the palaeodose and the sublinearity correction, growth curves, rejection criteria,...).
+The third page regroups all the information about the equivalent dose (dose plateau for the palaeodose and the supralinearity correction, growth curves, rejection criteria,...).
 }
 \details{
 \bold{Fitting parameters} \cr
@@ -123,7 +132,7 @@ The fitting parameters are:  \cr
  \item{\code{fit.weighted}}{
    \link{logical}: If the fitting is weighted or not.}
  \item{\code{fit.use.slope}}{
-   \link{logical}: If the slope of the Q growth curve is reused for the sublinearity correction.}
+   \link{logical}: If the slope of the Q growth curve is reused for the supralinearity correction.}
  \item{\code{fit.aDoses.min}}{
    \link{numeric}: Lowest additive dose used for the fitting.}
  \item{\code{fit.aDoses.max}}{
@@ -139,7 +148,7 @@ See also \link{analyse_TL.MAAD}, \link{calc_TL.MAAD.fit.Q} and \link{calc_TL.MAA
 The plotting parameters are:  \cr
 \describe{
  \item{\code{plot.Tmin}}{
-   \link{numeric}: Lower temperature plotted.} 
+   \link{numeric}: Lower temperature plotted.}
  \item{\code{plot.Tmax}}{
    \link{numeric}: Higher temperature plotted.}
  \item{\code{no.plot}}{

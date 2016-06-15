@@ -5,8 +5,8 @@
 #'
 #' @param file.name
 #'  \link{character} (\bold{required}): Name of the file containing the luminescence data.
-#' @param relative.error
-#'  \link{numeric} (with default): Relative error of the TL signals.
+#' @param k
+#'  \link{numeric} (with default): Corrective factor for estimating the uncertainties using a poisson distribution.
 #' @param remove.discs
 #'  \link{numeric}  (with default): list containing the position of the aliquots to remove.
 #' @param file.parameters
@@ -81,7 +81,7 @@ script_TL.pretreatment <- function(
 
   file.name,
 
-  relative.error= 0.05,
+  k= 1,
 
   remove.discs=NULL,
 
@@ -108,8 +108,8 @@ script_TL.pretreatment <- function(
     stop("[script_TL.pretreatment] Error: Input 'file.name' is not of type 'character'.")
   }
 
-  if(!is.numeric(relative.error)){
-    stop("[script_TL.pretreatment] Error: Input 'relative.error' is not of type 'numeric'.")
+  if(!is.numeric(k)){
+    stop("[script_TL.pretreatment] Error: Input 'k' is not of type 'numeric'.")
   }
 
   if(!is.list(file.parameters)){
@@ -146,7 +146,7 @@ script_TL.pretreatment <- function(
 
   # TL curve recovery
   data <- script_TL.import(file.name = file.name,
-                          relative.error = relative.error,
+                          k = k,
                           file.parameters = file.parameters,
                           plotting.parameters = plotting.parameters)
 
@@ -163,7 +163,8 @@ script_TL.pretreatment <- function(
   print("Preheat removed")
 
   # Background substraction
-  data <- mod_substract.background(object = data)
+  data <- mod_substract.background(object = data,
+                                   plotting.parameters = plotting.parameters)
   print("Background substracted")
 
   # Peaks alignement

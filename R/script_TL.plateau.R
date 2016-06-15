@@ -5,8 +5,8 @@
 #'
 #' @param file.name
 #'  \link{character} (\bold{required}): Name of the file containing the luminescence data.
-#' @param relative.error
-#'  \link{numeric} (with default): Relative error of the TL signals.
+#' @param k
+#'  \link{numeric} (with default): Corrective factor for estimating the uncertainties using a poisson distribution.
 #' @param remove.discs
 #'  \link{numeric}  (with default): list containing the position of the aliquots that shall be removed.
 #' @param file.parameters
@@ -84,7 +84,7 @@ script_TL.plateau <- function(
   file.name,
 
 
-  relative.error= 0.05,
+  k= 1,
 
   remove.discs=NULL,
 
@@ -114,8 +114,8 @@ script_TL.plateau <- function(
     stop("[script_TL.plateau] Error: Input 'file.name' is not of type 'character'.")
   }
 
-  if(!is.numeric(relative.error)){
-    stop("[script_TL.plateau] Error: Input 'relative.error' is not of type 'numeric'.")
+  if(!is.numeric(k)){
+    stop("[script_TL.plateau] Error: Input 'k' is not of type 'numeric'.")
   }
 
   if(!is.list(file.parameters)){
@@ -132,7 +132,7 @@ script_TL.plateau <- function(
   # ------------------------------------------------------------------------------
 
   data <- script_TL.pretreatment(file.name = file.name,
-                                 relative.error = relative.error,
+                                 k = k,
                                  remove.discs = remove.discs,
                                  file.parameters = file.parameters,
                                  aligning.parameters = aligning.parameters,

@@ -12,8 +12,8 @@
 #'  \link{integer} (\bold{required}): Temperature ( °C) of the lower boundary for the signal integration.
 #' @param eval.Tmax
 #'  \link{integer} (\bold{required}): Temperature (°C) of the upper boundary for the signal integration.
-#' @param relative.error
-#'  \link{numeric} (with default): Relative error of the TL signals.
+#' @param k
+#'  \link{numeric} (with default): Corrective factor for estimating the uncertainties using a poisson distribution.
 #' @param remove.discs
 #'  \link{numeric}  (with default): list containing the position of the aliquots that shall be removed
 #' @param rejection.criteria
@@ -133,7 +133,7 @@ script_TL.SAR <- function(
 
   eval.Tmax,
 
-  relative.error= 0.05,
+  k= 1,
 
   remove.discs=NULL,
 
@@ -182,8 +182,8 @@ script_TL.SAR <- function(
     stop("[script_TL.MAAD] Error: Input 'eval.Tmax' is not of type 'numeric'.")
   }
 
-  if(!is.numeric(relative.error)){
-    stop("[script_TL.MAAD] Error: Input 'relative.error' is not of type 'numeric'.")
+  if(!is.numeric(k)){
+    stop("[script_TL.MAAD] Error: Input 'k' is not of type 'numeric'.")
   }
 
   if(!is.list(file.parameters)){
@@ -213,7 +213,7 @@ script_TL.SAR <- function(
 
   # data recovery and pretreatment
   data <- script_TL.pretreatment(file.name = file.name,
-                                 relative.error = relative.error,
+                                 k = k,
                                  remove.discs = remove.discs,
                                  file.parameters = file.parameters,
                                  aligning.parameters = aligning.parameters,

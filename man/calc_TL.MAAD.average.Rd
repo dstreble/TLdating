@@ -32,6 +32,10 @@ The function provide an \linkS4class{TLum.Results} object containing: \cr
 Internal function called by \link{analyse_TL.MAAD}. \cr
 This function estimates the average curves for each additive dose.
 }
+\details{
+\bold{Warning}: This function is an internal function and should not be used except for development purposes.
+ Internal functions can be heavily modified and even renamed or removed in new version of the package.
+}
 \author{
 David Strebler, University of Cologne (Germany).
 }

@@ -58,10 +58,10 @@ TLum.BIN.File2TLum.Analysis <- function(
 
   nRecords <- length(object@DATA)
 
-  positions <- as.integer(object@METADATA$POSITION)
-  runs <- as.integer(object@METADATA$RUN)
-  sets <- as.integer(object@METADATA$SET)
-  ltypes <- as.character(object@METADATA$LTYPE)
+  # positions <- as.integer(object@METADATA$POSITION)
+  # runs <- as.integer(object@METADATA$RUN)
+  # sets <- as.integer(object@METADATA$SET)
+  # ltypes <- as.character(object@METADATA$LTYPE)
   ids <- as.integer(object@METADATA$ID)
 
   # ------------------------------------------------------------------------------
@@ -72,19 +72,19 @@ TLum.BIN.File2TLum.Analysis <- function(
 
   for(i in 1 : nRecords){
 
-    temp.pos <- positions[i]
-    temp.run <- runs[i]
-    temp.set <- sets[i]
-    temp.ltype <- ltypes[i]
+    # temp.pos <- positions[i]
+    # temp.run <- runs[i]
+    # temp.set <- sets[i]
     temp.id <- ids[i]
 
     temp.record <- TLum.BIN.File2TLum.Data.Curve(object = object,
-                                                 pos = temp.pos,
-                                                 run = temp.run,
-                                                 set = temp.set,
+                                                 # pos = temp.pos,
+                                                 # run = temp.run,
+                                                 # set = temp.set,
                                                  id = temp.id,
                                                  rec_duringPH =rec_duringPH,
                                                  rec_ramp2PH =rec_ramp2PH)
+
 
     new.records <- c(new.records, temp.record)
   }

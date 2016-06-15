@@ -4,7 +4,7 @@
 \alias{script_TL.plateau}
 \title{Script for the plateau test}
 \usage{
-script_TL.plateau(file.name, relative.error = 0.05, remove.discs = NULL,
+script_TL.plateau(file.name, k = 1, remove.discs = NULL,
   file.parameters = list(file.extension = ".binx", folder.in = "./",
   folder.out = "./"), aligning.parameters = list(peak.Tmin = NULL, peak.Tmax =
   NULL, no.testdose = FALSE), plotting.parameters = list(plot.Tmin = 0,
@@ -13,7 +13,7 @@ script_TL.plateau(file.name, relative.error = 0.05, remove.discs = NULL,
 \arguments{
 \item{file.name}{\link{character} (\bold{required}): Name of the file containing the luminescence data.}
 
-\item{relative.error}{\link{numeric} (with default): Relative error of the TL signals.}
+\item{k}{\link{numeric} (with default): Corrective factor for estimating the uncertainties using a poisson distribution.}
 
 \item{remove.discs}{\link{numeric}  (with default): list containing the position of the aliquots that shall be removed.}
 

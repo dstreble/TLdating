@@ -4,14 +4,14 @@
 \alias{script_TL.import}
 \title{Script for data pretreatment}
 \usage{
-script_TL.import(file.name, relative.error = 0.05, protocol = "Unknown",
+script_TL.import(file.name, k = 1, protocol = "Unknown",
   file.parameters = list(file.extension = ".binx", folder.in = "./"),
   plotting.parameters = list(plot.Tmin = 0, plot.Tmax = NA, no.plot = FALSE))
 }
 \arguments{
 \item{file.name}{\link{character} (\bold{required}): Name of the file containing the luminescence data.}
 
-\item{relative.error}{\link{numeric} (with default): Relative error of the TL signals.}
+\item{k}{\link{numeric} (with default): Corrective factor for estimating the uncertainties using a poisson distribution.}
 
 \item{protocol}{\link{character} (\bold{required}): Measurment protocol used.}
 

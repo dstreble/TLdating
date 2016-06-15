@@ -1,9 +1,9 @@
 #' Estimation of the equivalent dose (ED) value for the SAR protocol
-#' 
+#'
 #' Internal function called by \link{analyse_TL.SAR}. \cr
 #' This function estimates the equivalent dose (ED) based on a doses vector and a Lx/Tx vector provided. \cr
 #' See details for more information.
-#' 
+#'
 #' @param doses
 #'  \link{numeric} (\bold{required}): doses vector
 #' @param LnTn
@@ -19,9 +19,9 @@
 #'
 #' @details
 #' This function estimates the equivalent dose based on the doses vector, Ln/Tn and the Lx/Tx matrix provided. \cr
-#' Different fitting methods are available (\code{LIN}, \code{EXP}, \code{EXP+LIN} or \code{EXP+EXP}). 
+#' Different fitting methods are available (\code{LIN}, \code{EXP}, \code{EXP+LIN} or \code{EXP+EXP}).
 #' Moreover, the fitting can be weigthed or not. \cr
-#' 
+#'
 #' \bold{Fitting parameters} \cr
 #' The fitting parameters are:  \cr
 #' \describe{
@@ -36,7 +36,7 @@
 #'  \item{\code{fit.rDoses.max}}{
 #'    \link{numeric}: Highest regenerative dose used for the fitting.}
 #' }
-#' 
+#'
 #' @return
 #'  The function provides an \linkS4class{TLum.Results} object containing: \cr
 #'  \describe{
@@ -49,141 +49,149 @@
 #'    \item{\code{summary}}{
 #'      \link{list}: parameters of the fitting result.}
 #'  }
-#' 
-#' @seealso   
+#'
+#' @details
+#'  \bold{Warning}: This function is an internal function and should not be used except for development purposes.
+#'  Internal functions can be heavily modified and even renamed or removed in new version of the package.
+#'
+#' @seealso
 #'  \link{analyse_TL.SAR}.
-#'  
+#'
 #' @author David Strebler, University of Cologne (Germany).
-#' 
-## @export calc_TL.SAR.fit
+#'
+#' @export calc_TL.SAR.fit
 
 calc_TL.SAR.fit <- function(
-  
+
   doses,
 
   LnTn,
-  
+
   LnTn.error,
-    
+
   LxTx,
-  
+
   LxTx.error,
-  
+
   fitting.parameters=list(fit.method="LIN",
                           fit.weighted=FALSE)
-  
-){  
-  
+
+){
+
   fit.method <- fitting.parameters$fit.method
   fit.weighted <- fitting.parameters$fit.weighted
-  
+
   # Integrity Check ---------------------------------------------------------
-  
+
   if (missing(LnTn)){
     stop("[calc_TL.SARfit] Error: LnTn is missing.")
   }
-  
+
   if (missing(LnTn.error)){
     stop("[calc_TL.SARfit] Error: LnTn.error is missing.")
   }
-  
+
   if (missing(LxTx)){
     stop("[calc_TL.SARfit] Error: LxTx is missing.")
   }
-  
+
   if (missing(LxTx.error)){
     stop("[calc_TL.SARfit] Error: LxTx.error is missing.")
   }
-  
+
   if (missing(doses)){
     stop("[calc_TL.SARfit] Error: doses is missing.")
   }
   # ------------------------------------------------------------------------------
-    
+
   w <- 1/(LxTx.error^2)
-  
+
   w[!is.finite(w)] <- 0.0001
   LxTx[!is.finite(LxTx)] <- 0.0001
-  
-  data <- data.frame(x=doses, 
+
+  data <- data.frame(x=doses,
                      y=LxTx)
-  
+
   #LIN
   function.LIN <- function(a,b,x){a+b*x}
-  
+
   #EXP
   function.EXP <- function(a,b,c,x){a*(1-exp(-(x+c)/b))}
-  
+
   #EXP+LIN
   function.EXPLIN <- function(a,b,c,g,x){a*(1-exp(-(x+c)/b)+(g*x))}
-  
+
   #EXP+EXP
   function.EXPEXP <- function(a1,a2,b1,b2,x){(a1*(1-exp(-(x)/b1)))+(a2*(1-exp(-(x)/b2)))}
-  
+
 
   if(fit.method == "LIN"){
-  
+
     # Weighted
-    if(fit.weighted){       
+    if(fit.weighted){
       fit <- lm(formula = y ~ x,
                 data = data,
                 weights=w)
-      
+
     # Not weighted
     }else{
       fit <- lm(formula = y ~ x,
                 data = data)
     }
-        
-    res <- summary(fit)$coefficients[,"Estimate"]
-    names(res) <- c("a","b")
-    
-    res.error.r <- summary(fit)$coefficients[,"Std. Error"]
-    names(res.error.r) <- c("a","b")
-    
-    res.error <- abs(res*res.error.r)
-    
-    s <- list(a = res["a"],
-              a.error = res.error["a"],
-              b = res["b"],
-              b.error = res.error["b"])
-    
-    Q <- (LnTn-res["a"])/res["b"]
-    
-    temp.error <- sqrt(sum(LnTn.error^2,(res.error["a"])^2,na.rm = TRUE))
-    temp.error.r <- temp.error/abs(LnTn-res["a"])
-    Q.error.r <- sqrt(sum(temp.error.r^2,(res.error.r["b"])^2,na.rm=TRUE))
-    Q.error <- abs(Q*Q.error.r)
-    
+
+    a <- summary(fit,correlation = TRUE)$coefficients[1,"Estimate"]
+    a.error <- summary(fit,correlation = TRUE)$coefficients[1,"Std. Error"]
+    b <- summary(fit,correlation = TRUE)$coefficients[2,"Estimate"]
+    b.error <- summary(fit,correlation = TRUE)$coefficients[2,"Std. Error"]
+
+    r <- abs(summary(fit,correlation = TRUE)$correlation[1,2])
+
+    s <- list(a = a,
+              a.error = a.error,
+              b = b,
+              b.error = b.error,
+              r = r)
+
+    Q <- (LnTn - a)/b
+
+    #Q.error <- sqrt((a.error/a)^2 + (b.error/b)^2 + 2*(a.error/a)*(b.error/b)*r ) * Q
+    #Q.error <- sqrt((a.error/a)^2 + (b.error/b)^2 ) * Q
+
+    a2 <- abs(LnTn - a)
+    a2.error <- sqrt(sum(LnTn.error^2,a.error^2,na.rm = TRUE))
+
+    Q.error <- sqrt(sum((a2.error/a2)^2,(b.error/b)^2,abs(2*(a2.error/a2)*(b.error/b)*r), na.rm = TRUE))*Q
+
+
   }else if(fit.method == "EXP"){
-    
+
     # initial parameters
     # a
     a.i<-max(LxTx)
-    
+
     # b
     temp.lm <- try(lm(log(data$y)~data$x),
                    silent = TRUE)
-    
+
     if(class(temp.lm) =="try-error"){
       b.i<-1
     }else{
       b.i <- as.numeric(1/temp.lm$coefficients[2])
-    } 
-    
+    }
+
     #c
     temp.lm <- try(lm(data$y~data$x),
                    silent = TRUE)
-    
+
     if(class(temp.lm) =="try-error"){
       c.i<-0
     }else{
       c.i <- as.numeric(abs(temp.lm$coefficients[1]/temp.lm$coefficients[2]))
-    }  
-      
+    }
+
     #Fitting
       # Weighted
-    if(fit.weighted){       
+    if(fit.weighted){
       fit<-try(nls(y~function.EXP(a,b,c,x),
                    data=data,
                    start=c(a=a.i,
@@ -194,7 +202,7 @@ calc_TL.SAR.fit <- function(
                    algorithm="port",
                    nls.control(maxiter=500)),
                silent=TRUE)
-      
+
       # Not weighted
     }else{
       fit<-try(nls(y~function.EXP(a,b,c,x),
@@ -207,11 +215,11 @@ calc_TL.SAR.fit <- function(
                    nls.control(maxiter=500)),
                silent=TRUE)
     }
-    
-    if (class(fit)=="try-error"){   
-      
+
+    if (class(fit)=="try-error"){
+
       print("pas ok")
-      
+
       fit <- NA
       s <- list(a = NA,
                 a.error = NA,
@@ -221,37 +229,37 @@ calc_TL.SAR.fit <- function(
                 c.error = NA)
       Q <- 0
       Q.error <- NA
-      
-    }else{     
+
+    }else{
       print("ok")
-      
+
       res <- summary(fit)$coefficients[,"Estimate"]
       res.error.r <- summary(fit)$coefficients[,"Std. Error"]
-            
+
       res.error <- abs(res*res.error)
-      
+
       s <- list(a = res["a"],
                 a.error = res.error["a"],
                 b = res["b"],
                 b.error = res.error["b"],
                 c = res["c"],
                 c.error = res.error["c"])
-      
+
       Q <- -res["c"]-res["b"]*log(1-LnTn/res["b"])
       Q.error <- 1 # temp
     }
-    
+
   }else{
-    stop("[calc_TL.SARfit] Error: fit.method not supported.")  
-  } 
+    stop("[calc_TL.SARfit] Error: fit.method not supported.")
+  }
 
   result <- list(GC=fit,
-                 Q=Q, 
+                 Q=Q,
                  Q.error=Q.error,
                  summary=s)
-    
+
   new.TLum.Results.calc_TL.SAR.fit <- set_TLum.Results(data = result)
 
-  return (new.TLum.Results.calc_TL.SAR.fit) 
+  return (new.TLum.Results.calc_TL.SAR.fit)
 }
-  
+

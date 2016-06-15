@@ -42,7 +42,7 @@ mod_remove.aliquot <- function(
   protocol <- object@protocol
   nRecord <- length(object@records)
 
-  temp.id <- 0
+  #temp.id <- 0
 
   new.records <- list()
 
@@ -52,9 +52,9 @@ mod_remove.aliquot <- function(
 
     if(!(temp.position %in% list)) {
 
-      temp.id <- temp.id+1
+      #temp.id <- temp.id+1
 
-      temp.curve@metadata$ID <- temp.id
+      #temp.curve@metadata$ID <- temp.id
 
       new.records <- c(new.records, temp.curve)
 

@@ -36,6 +36,10 @@
 #'      Absolute error for the Lx/Tx matrix.}
 #'  }
 #'
+#' @details
+#'  \bold{Warning}: This function is an internal function and should not be used except for development purposes.
+#'  Internal functions can be heavily modified and even renamed or removed in new version of the package.
+#'
 #' @references
 #'  Aitken, M.J. (1985) Thermoluminescence Dating, Academic Press, London \cr
 #'
@@ -103,13 +107,12 @@ calc_TL.LxTx <- function(
   Tx <- vector()
   Tx.error <- vector()
 
-
   #Test dose identification + Separation of Lx and Tx.
   for (i in 1:nRecords){
 
     temp.record <- object@records[[i]]
-    temp.dType <- temp.record@metadata$DTYPE
 
+    temp.dType <- temp.record@metadata$DTYPE
     temp.dose <- temp.record@metadata$IRR_TIME
 
     temp.curve <- temp.record@data
@@ -139,7 +142,7 @@ calc_TL.LxTx <- function(
   #------------------------------------------------------------------------------
   # Check: Lx & Tx length
   if(length(Tx) > 0){
-    if(length(Lx) != length(Tx)){
+    if(!identical(dim(Lx), dim(Tx))){
       stop("[calc_TL.LxTx] Error: Lx and Tx do not have the same size.")
     }
   }else{
@@ -153,15 +156,18 @@ calc_TL.LxTx <- function(
   temp.b <- 1
   temp.i <- 1
 
-  for(i in 1 : length(doses)){
+  for(i in 1 : length(dTypes)){
 
     if(dTypes[i] == "Natural"){
       temp.name <- "N"
 
     }else if(dTypes[i] == "Dose"){
-      temp.name <- paste("R", temp.r, sep="")
-      temp.r <- temp.r + 1
-
+      if(doses[i] == 0){
+        temp.name <- "R0"
+      }else{
+        temp.name <- paste("R", temp.r, sep="")
+        temp.r <- temp.r + 1
+      }
     }else if(dTypes[i] == "N+dose"){
       temp.name <- paste("A", temp.a, sep="")
       temp.a <- temp.a + 1
@@ -188,7 +194,7 @@ calc_TL.LxTx <- function(
   colnames(Lx.error) <- names
 
   # Naming Tx
-  if(length(Tx) > 0){
+  if(identical(dim(Tx), dim(Lx))){
     names(testdoses) <- names
 
     colnames(Tx) <- names
@@ -197,14 +203,9 @@ calc_TL.LxTx <- function(
   #------------------------------------------------------------------------------
 
   #Lx/Tx
-  if(length(Tx) > 0){
+  if(identical(dim(Tx), dim(Lx))){
     LxTx <- Lx/Tx
-
-    #error estimation
-    Lx.error.r <- abs(Lx.error/Lx)
-    Tx.error.r <- abs(Tx.error/Tx)
-    LxTx.error.r <- sqrt(Lx.error.r^2 + Tx.error.r^2)
-    LxTx.error <- abs(LxTx*LxTx.error.r)
+    LxTx.error <- sqrt((Lx.error/Lx)^2 + (Tx.error/Tx)^2)*abs(LxTx)
 
   }else{
     LxTx <- Lx

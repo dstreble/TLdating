@@ -4,15 +4,14 @@
 \alias{script_TL.MAAD}
 \title{Script for the MAAD protocol}
 \usage{
-script_TL.MAAD(file.name, eval.Tmin, eval.Tmax, relative.error = 0.05,
-  remove.discs = NULL, file.parameters = list(file.extension = ".binx",
-  folder.in = "./", folder.out = "./"), aligning.parameters = list(peak.Tmin =
-  NULL, peak.Tmax = NULL, no.testdose = FALSE),
-  fitting.parameters = list(fit.method = "LIN", fit.weighted = FALSE,
-  fit.use.slope = FALSE, fit.aDoses.min = 0, fit.aDoses.max = NA, fit.rDoses.min
-  = 0, fit.rDoses.max = NA), plotting.parameters = list(plot.Tmin = 0,
-  plot.Tmax = NA, no.plot = FALSE), rejection.criteria = list(testdose.error =
-  10, paleodose.error = 10))
+script_TL.MAAD(file.name, eval.Tmin, eval.Tmax, k = 1, remove.discs = NULL,
+  file.parameters = list(file.extension = ".binx", folder.in = "./",
+  folder.out = "./"), aligning.parameters = list(peak.Tmin = NULL, peak.Tmax =
+  NULL, no.testdose = FALSE), fitting.parameters = list(fit.method = "LIN",
+  fit.weighted = FALSE, fit.use.slope = FALSE, fit.aDoses.min = 0,
+  fit.aDoses.max = NA, fit.rDoses.min = 0, fit.rDoses.max = NA),
+  plotting.parameters = list(plot.Tmin = 0, plot.Tmax = NA, no.plot = FALSE),
+  rejection.criteria = list(testdose.error = 10, paleodose.error = 10))
 }
 \arguments{
 \item{file.name}{\link{character} (\bold{required}): Name of the file containing the luminescence data.}
@@ -21,7 +20,7 @@ script_TL.MAAD(file.name, eval.Tmin, eval.Tmax, relative.error = 0.05,
 
 \item{eval.Tmax}{\link{integer} (\bold{required}): Temperature (°C) of the upper boundary for the signal integration.}
 
-\item{relative.error}{\link{numeric} (with default): Relative error of the TL signals.}
+\item{k}{\link{numeric} (with default): Corrective factor for estimating the uncertainties using a poisson distribution.}
 
 \item{remove.discs}{\link{numeric}  (with default): list containing the position of the aliquots to shall be removed.}
 
@@ -91,7 +90,7 @@ The fitting parameters are:  \cr
  \item{\code{fit.weighted}}{
    \link{logical}: If the fitting is weighted or not.}
  \item{\code{fit.use.slope}}{
-   \link{logical}: If the slope of the Q growth curve is reused for the sublinearity correction.}
+   \link{logical}: If the slope of the Q growth curve is reused for the supralinearity correction.}
  \item{\code{fit.aDoses.min}}{
    \link{numeric}: Lowest additive dose used for the fitting.}
  \item{\code{fit.aDoses.max}}{

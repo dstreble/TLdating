@@ -92,7 +92,7 @@ mod_extract.TL <- function(
 
   test.TL <- vector()
 
-  new.id <- 1
+  #new.id <- 1
 
   for(i in 1:nRecords){
     temp.curve <- records[[i]]
@@ -111,8 +111,8 @@ mod_extract.TL <- function(
       temperatures <- c(temperatures, temp.temperatures)
 
       new.curve <- temp.curve
-      new.curve@metadata$ID <- new.id
-      new.id <- new.id+1
+      #new.curve@metadata$ID <- new.id
+      #new.id <- new.id+1
 
       new.records <- c(new.records, new.curve)
     }else{

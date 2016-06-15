@@ -68,82 +68,93 @@ TLum.BIN.File2TLum.Data.Curve <- function(
 
     }
 
-    if (is(pos,"numeric")==FALSE){
+    if (!is.numeric(pos)){
       stop("[TLum.BIN.File2TLum.Data.Curve] Error: Argument 'pos' has to be of data type integer.")
     }
 
-    if (is(set,"numeric")==FALSE){
+    if (!is.numeric(set)){
       stop("[TLum.BIN.File2TLum.Data.Curve] Error: Argument 'set' has to be of data type integer.")
     }
 
-    if (is(run,"numeric")==FALSE){
+    if (!is.numeric(run)){
       stop("[TLum.BIN.File2TLum.Data.Curve] Error: Argument 'run' has to be of data type integer.")
     }
 
-    if (length(which(pos/1:48 == 1)) == 0){
-      stop("[TLum.BIN.File2TLum.Data.Curve] Error: Value for 'pos' out of bounds.")
-    }
+    # if (length(which(pos/1:48 == 1)) == 0){
+    #   stop("[TLum.BIN.File2TLum.Data.Curve] Error: Value for 'pos' out of bounds.")
+    # }
 
     ##get and check valid positions
-    positions.valid <- paste(as.character(unique(object@METADATA[,"POSITION"])), collapse=", ")
+    positions.valid <- unique(object@METADATA[,"POSITION"])
 
-    if ((pos %in% unique(object@METADATA[,"POSITION"])) == FALSE){
+    if (!(pos %in% positions.valid)){
       stop(paste("[TLum.BIN.File2TLum.Data.Curve] Error: pos = ",pos, " is not valid.
-                 Valid positions are: ", positions.valid, sep=""))
+                 Valid positions are: ", paste(as.character(positions.valid), collapse=", "),
+                 sep=""))
     }
 
-    ##get and check valid positions
-    positions.valid <- paste(as.character(unique(object@METADATA[,"SET"])), collapse=", ")
+    ##get and check valid set
+    set.valid <- unique(object@METADATA[,"SET"])
 
-    if ((set %in% unique(object@METADATA[,"SET"])) == FALSE){
+    if (!(set %in% set.valid)){
       stop(paste("[TLum.BIN.File2TLum.Data.Curve] Error: set = ",set, " is not valid.
-                 Valid values are: ", positions.valid, sep=""))
+                 Valid values are: ", paste(as.character(set.valid), collapse=", "),
+                 sep=""))
     }
 
 
-    ##get and check valid positions
-    positions.valid <- paste(as.character(unique(object@METADATA[,"RUN"])), collapse=", ")
+    ##get and check valid run
+    run.valid <- unique(object@METADATA[,"RUN"])
 
-    if ((run %in% unique(object@METADATA[,"RUN"])) == FALSE){
+    if (!(run %in% run.valid)){
       stop(paste("[TLum.BIN.File2TLum.Data.Curve] Error: run = ",run, " is not valid.
-                 Valid values are: ", positions.valid, sep=""))
+                 Valid values are: ", paste(as.character(run.valid), collapse=", "),
+                 sep=""))
     }
 
     }else{
 
       ##check if id is valid
-      temp.range.id <- range(object@METADATA[,"ID"])
+      id.valid <- unique(object@METADATA[,"ID"])
 
-      if ((id %in% unique(object@METADATA[,"ID"])) == FALSE){
-        stop(paste("[TLum.BIN.File2TLum.Data.Curve] Error: id = ",id, " is not a valid record id. Allowed value range ", min(temp.range.id), " : ", max(temp.range.id),".", sep=""))
-
+      if (!(id %in% id.valid)){
+        stop(paste("[TLum.BIN.File2TLum.Data.Curve] Error: id = ",id, " is not a valid record id.
+                   Valid values are: ",  paste(as.character(run.valid), collapse=", "),
+                   sep=""))
       }
-
     }
 
 
   # grep id of record -------------------------------------------------------
 
-  ##if id is set, no input for pos and rund is nescessary
+  ##if id is set, no input for pos and run is nescessary
   if(missing(id) == TRUE){
 
-    id <- object@METADATA[object@METADATA[,"POSITION"] == pos &
-                            object@METADATA[,"SET"] == set &
-                            object@METADATA[,"RUN"] == run,
-                          "ID"]
+    temp.pos <- object@METADATA$POSITION
+    temp.set <- object@METADATA$SET
+    temp.run <- object@METADATA$RUN
 
+    record <- which(temp.pos == pos & temp.set == set & temp.run == run)
 
+  }else{
+    temp.id <- object@METADATA$ID
+
+    record <- which(temp.id == id)
   }
 
 
   # Select values -----------------------------------------------------------
 
-  ##build matrix
-  Tmax <- object@METADATA[id,"HIGH"]
-  nPoints <- object@METADATA[id,"NPOINTS"]
-  Hrate <- object@METADATA[id,"RATE"]
-  an_time  <- object@METADATA[id,"AN_TIME"]
-  an_temp  <- object@METADATA[id,"AN_TEMP"]
+  new.recordType <- as.character(object@METADATA[record,"LTYPE"])
+  new.curveType <- as.character(object@METADATA[record,"DTYPE"])
+
+  new.metadata <- as.list(object@METADATA[record,])
+
+  Tmax <- new.metadata$HIGH
+  nPoints <- new.metadata$NPOINTS
+  Hrate <- new.metadata$RATE
+  an_time  <- new.metadata$AN_TIME
+  an_temp  <- new.metadata$AN_TEMP
 
   temperatures.data <- calc_TL.temperature(nPoints = nPoints,
                                           Tmax = Tmax,
@@ -155,21 +166,17 @@ TLum.BIN.File2TLum.Data.Curve <- function(
 
   new.temperatures <- get_TLum.Results(temperatures.data,"temperatures")
 
-  new.data <- as.numeric(unlist(object@DATA[id]))
-
-  new.error <- as.numeric(unlist(object@ERROR[id]))
-
-  new.recordType <- as.character(object@METADATA[id,"LTYPE"])
-
-  new.metadata <- as.list(object@METADATA[id,])
+  new.data <- as.numeric(unlist(object@DATA[record]))
+  new.error <- as.numeric(unlist(object@ERROR[record]))
 
   new.analysis <- list()
 
-  new.RESERVED <- object@.RESERVED[[id]]
+  new.RESERVED <- object@.RESERVED[[record]]
 
   # Build object ------------------------------------------------------------
 
   new.TLum.Data.Curve <- set_TLum.Data.Curve(recordType = new.recordType,
+                                             curveType = new.curveType,
                                              temperatures = new.temperatures,
                                              data = new.data,
                                              error = new.error,

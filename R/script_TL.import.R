@@ -6,8 +6,8 @@
 #'
 #' @param file.name
 #'  \link{character} (\bold{required}): Name of the file containing the luminescence data.
-#' @param relative.error
-#'  \link{numeric} (with default): Relative error of the TL signals.
+#' @param k
+#'  \link{numeric} (with default): Corrective factor for estimating the uncertainties using a poisson distribution.
 #' @param protocol
 #'  \link{character} (\bold{required}): Measurment protocol used.
 #' @param file.parameters
@@ -55,7 +55,7 @@ script_TL.import <- function(
 
   file.name,
 
-  relative.error= 0.05,
+  k = 1,
 
   protocol = "Unknown",
 
@@ -79,8 +79,8 @@ script_TL.import <- function(
   if(!is.character(protocol)){
     stop("[script_TL.import] Error: Input 'protocol' is not of type 'character'.")
   }
-  if(!is.numeric(relative.error)){
-    stop("[script_TL.import] Error: Input 'relative.error' is not of type 'numeric'.")
+  if(!is.numeric(k)){
+    stop("[script_TL.import] Error: Input 'k' is not of type 'numeric'.")
   }
 
   if(!is.list(file.parameters)){
@@ -97,16 +97,9 @@ script_TL.import <- function(
 
   # ------------------------------------------------------------------------------
   # Value check
-  if(relative.error > 1){
-    warning("[script_TL.import] Warning: Input 'relative.error' > 1.")
-
-  }else if(relative.error < -1){
-    relative.error <- abs(relative.error)
-    warning("[script_TL.import] Warning: Input 'relative.error' < -1.")
-
-  }else if(relative.error < 0){
-    relative.error <- abs(relative.error)
-    warning("[script_TL.import] Warning: Input 'relative.error' < 0.")
+  if(k < 0){
+    k <- abs(k)
+    warning("[script_TL.import] Warning: Input 'k' < 0.")
   }
 
   if(!is.character(file.extension)){
@@ -128,7 +121,7 @@ script_TL.import <- function(
   data.in <- read_BIN2R(path.in)
 
   data <- Risoe.BINfileData2TLum.BIN.File(object = data.in,
-                                          relative.error = relative.error)
+                                          k = k)
 
   data <- TLum.BIN.File2TLum.Analysis(object = data, protocol = protocol)
 
@@ -141,6 +134,11 @@ script_TL.import <- function(
   data <- mod_update.dType(object = data)
 
   print("Preheat and tesdose identify")
+
+  # Update error using a poisson distribution
+  data <- mod_update.error(object = data, method = "poisson")
+
+  print("Uncertainties base on a poisson distribution")
 
   return(data)
 }

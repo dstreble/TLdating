@@ -4,16 +4,16 @@
 \alias{script_TL.pretreatment}
 \title{Script for data pretreatment}
 \usage{
-script_TL.pretreatment(file.name, relative.error = 0.05,
-  remove.discs = NULL, file.parameters = list(file.extension = ".binx",
-  folder.in = "./", folder.out = "./"), aligning.parameters = list(peak.Tmin =
-  NULL, peak.Tmax = NULL, no.testdose = FALSE),
-  plotting.parameters = list(plot.Tmin = 0, plot.Tmax = NA, no.plot = FALSE))
+script_TL.pretreatment(file.name, k = 1, remove.discs = NULL,
+  file.parameters = list(file.extension = ".binx", folder.in = "./",
+  folder.out = "./"), aligning.parameters = list(peak.Tmin = NULL, peak.Tmax =
+  NULL, no.testdose = FALSE), plotting.parameters = list(plot.Tmin = 0,
+  plot.Tmax = NA, no.plot = FALSE))
 }
 \arguments{
 \item{file.name}{\link{character} (\bold{required}): Name of the file containing the luminescence data.}
 
-\item{relative.error}{\link{numeric} (with default): Relative error of the TL signals.}
+\item{k}{\link{numeric} (with default): Corrective factor for estimating the uncertainties using a poisson distribution.}
 
 \item{remove.discs}{\link{numeric}  (with default): list containing the position of the aliquots to remove.}
 

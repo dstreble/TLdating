@@ -137,7 +137,7 @@ mod_extract.preheat <- function(
   # -------------------------------------------------------------------------------------------------------------------
 
 
-  temp.id <- 0
+  #temp.id <- 0
 
   new.records <- list()
 
@@ -146,9 +146,9 @@ mod_extract.preheat <- function(
 
     if(test.preheat[i] == TRUE) {
 
-      temp.id <- temp.id+1
+      #temp.id <- temp.id+1
 
-      temp.record@metadata$ID <- temp.id
+      #temp.record@metadata$ID <- temp.id
 
       new.records <- c(new.records, temp.record)
     }

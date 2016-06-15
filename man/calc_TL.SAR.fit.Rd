@@ -40,7 +40,7 @@ See details for more information.
 }
 \details{
 This function estimates the equivalent dose based on the doses vector, Ln/Tn and the Lx/Tx matrix provided. \cr
-Different fitting methods are available (\code{LIN}, \code{EXP}, \code{EXP+LIN} or \code{EXP+EXP}). 
+Different fitting methods are available (\code{LIN}, \code{EXP}, \code{EXP+LIN} or \code{EXP+EXP}).
 Moreover, the fitting can be weigthed or not. \cr
 
 \bold{Fitting parameters} \cr
@@ -57,6 +57,9 @@ The fitting parameters are:  \cr
  \item{\code{fit.rDoses.max}}{
    \link{numeric}: Highest regenerative dose used for the fitting.}
 }
+
+\bold{Warning}: This function is an internal function and should not be used except for development purposes.
+ Internal functions can be heavily modified and even renamed or removed in new version of the package.
 }
 \author{
 David Strebler, University of Cologne (Germany).

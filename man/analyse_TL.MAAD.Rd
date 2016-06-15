@@ -43,13 +43,13 @@ The results are plotted using \link{plot_TL.MAAD}. \cr
 }
 \description{
 Function to estimate the ED in TL dating using the MAAD protocol. \cr
-It provides an estimation of the palaeodose (Q) and/or the sublinearity correction (I).
+It provides an estimation of the palaeodose (Q) and/or the supralinearity correction (I).
 The equivalent dose (ED) is estimated by the addition of Q and I. \cr
 See details for more information.
 }
 \details{
 This function estimates the equivalent dose for the thermoluminescence dating with the MAAD protocol.
-It can provide an estimation of the palaeodose (Q) and the sublinearity correction (I) simultaniously or separately.
+It can provide an estimation of the palaeodose (Q) and the supralinearity correction (I) simultaniously or separately.
 These are estimated using the growth curve approach (QC) (Aitken, 1985) and the dose plateau approach (DP).
 Both approaches should provide a similar result. The equivalent dose is estimated by the addition of Q and I\cr
 The Lx/Tx matrix is estimated using \link{calc_TL.LxTx}. \cr
@@ -73,7 +73,7 @@ The fitting parameters are:  \cr
  \item{\code{fit.weighted}}{
    \link{logical}: If the fitting is weighted or not.}
  \item{\code{fit.use.slope}}{
-   \link{logical}: If the slope of the Q growth curve is reused for the sublinearity correction.}
+   \link{logical}: If the slope of the Q growth curve is reused for the supralinearity correction.}
  \item{\code{fit.aDoses.min}}{
    \link{numeric}: Lowest additive dose used for the fitting.}
  \item{\code{fit.aDoses.max}}{

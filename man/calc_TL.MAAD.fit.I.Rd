@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_TL.MAAD.fit.I.R
 \name{calc_TL.MAAD.fit.I}
 \alias{calc_TL.MAAD.fit.I}
-\title{Estimation of the sublinearity value for the MAAD protocol}
+\title{Estimation of the supralinearity value for the MAAD protocol}
 \usage{
 calc_TL.MAAD.fit.I(LxTx, LxTx.error, doses, slope = NULL,
   fitting.parameters = list(fit.method = "LIN", fit.weighted = FALSE,
@@ -25,25 +25,25 @@ The function provides an \linkS4class{TLum.Results} object containing: \cr
    \item{\code{GC}}{
      \linkS4class{lm}: The fitting result.}
    \item{\code{i}}{
-     \link{numeric}: The sublinearity correction estimation for the given equivalent dose}
+     \link{numeric}: The supralinearity correction estimation for the given equivalent dose}
    \item{\code{I.error}}{
-     \link{numeric}: The error for the sublinearity correction estimation}
+     \link{numeric}: The error for the supralinearity correction estimation}
    \item{\code{summary}}{
      \link{numeric}: The parameters of the fitting result.}
  }
 }
 \description{
 Internal function called by \link{analyse_TL.MAAD}. \cr
-This function estimates the sublinearity correction based on the dose vector and the Lx/Tx vector provided. \cr
+This function estimates the supralinearity correction based on the dose vector and the Lx/Tx vector provided. \cr
 See details for more information.
 }
 \details{
-This function estimates the sublinearity correction based on the doses vector and the Lx/Tx matrix provided. \cr
-Different fitting methods are available (\code{LIN}, \code{EXP}, \code{EXP+LIN} or \code{EXP+EXP}). 
+This function estimates the supralinearity correction based on the doses vector and the Lx/Tx matrix provided. \cr
+Different fitting methods are available (\code{LIN}, \code{EXP}, \code{EXP+LIN} or \code{EXP+EXP}).
 Morover, the fitting can be weigthed or not. \cr
-If the fitting parameter \code{fit.use.slope} is \code{TRUE}, the function will use the data 
-from \code{slope} to define the fitting curve for the sublinearity correction.
-In that case, the sublinearity correction growth curve will be parallel to the additive growth curve.    
+If the fitting parameter \code{fit.use.slope} is \code{TRUE}, the function will use the data
+from \code{slope} to define the fitting curve for the supralinearity correction.
+In that case, the supralinearity correction growth curve will be parallel to the additive growth curve.
 
 #' \bold{Fitting parameters} \cr
 The fitting parameters are:  \cr
@@ -53,12 +53,15 @@ The fitting parameters are:  \cr
  \item{\code{fit.weighted}}{
    \link{logical}: If the fitting is weighted or not.}
  \item{\code{fit.use.slope}}{
-   \link{logical}: If the slope of the Q growth curve is reused for the sublinearity correction.}
+   \link{logical}: If the slope of the Q growth curve is reused for the supralinearity correction.}
  \item{\code{fit.rDoses.min}}{
    \link{numeric}: lowest regenerative dose used for the fitting.}
  \item{\code{fit.rDoses.max}}{
    \link{numeric}: Highest regenerative dose used for the fitting.}
 }
+
+\bold{Warning}: This function is an internal function and should not be used except for development purposes.
+ Internal functions can be heavily modified and even renamed or removed in new version of the package.
 }
 \author{
 David Strebler, University of Cologne (Germany).

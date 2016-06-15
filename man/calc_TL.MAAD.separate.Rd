@@ -17,10 +17,14 @@ calc_TL.MAAD.separate(Lx, Lx.error, doses, dTypes)
 }
 \description{
 Internal function called by \link{analyse_TL.MAAD}. \cr
-This function separates the additive curves from the regenerative curves using a vector containing the data type associate with each curve. 
+This function separates the additive curves from the regenerative curves using a vector containing the data type associate with each curve.
 Additive curves have "Natural" or "N+dose" as datatype.
 Regenerative curves have "Bleach" or "Bleach+dose" as datatype.
 Other datatypes are not supported.
+}
+\details{
+\bold{Warning}: This function is an internal function and should not be used except for development purposes.
+ Internal functions can be heavily modified and even renamed or removed in new version of the package.
 }
 \author{
 David Strebler, University of Cologne (Germany).

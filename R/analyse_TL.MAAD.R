@@ -1,7 +1,7 @@
 #' MAAD protocol for TL dating
 #'
 #' Function to estimate the ED in TL dating using the MAAD protocol. \cr
-#' It provides an estimation of the palaeodose (Q) and/or the sublinearity correction (I).
+#' It provides an estimation of the palaeodose (Q) and/or the supralinearity correction (I).
 #' The equivalent dose (ED) is estimated by the addition of Q and I. \cr
 #' See details for more information.
 #'
@@ -21,7 +21,7 @@
 #'
 #' @details
 #' This function estimates the equivalent dose for the thermoluminescence dating with the MAAD protocol.
-#' It can provide an estimation of the palaeodose (Q) and the sublinearity correction (I) simultaniously or separately.
+#' It can provide an estimation of the palaeodose (Q) and the supralinearity correction (I) simultaniously or separately.
 #' These are estimated using the growth curve approach (QC) (Aitken, 1985) and the dose plateau approach (DP).
 #' Both approaches should provide a similar result. The equivalent dose is estimated by the addition of Q and I\cr
 #' The Lx/Tx matrix is estimated using \link{calc_TL.LxTx}. \cr
@@ -45,7 +45,7 @@
 #'  \item{\code{fit.weighted}}{
 #'    \link{logical}: If the fitting is weighted or not.}
 #'  \item{\code{fit.use.slope}}{
-#'    \link{logical}: If the slope of the Q growth curve is reused for the sublinearity correction.}
+#'    \link{logical}: If the slope of the Q growth curve is reused for the supralinearity correction.}
 #'  \item{\code{fit.aDoses.min}}{
 #'    \link{numeric}: Lowest additive dose used for the fitting.}
 #'  \item{\code{fit.aDoses.max}}{
@@ -296,7 +296,7 @@ analyse_TL.MAAD <- function(
     temp.data <- calc_TL.MAAD.average(names=aNames.f,
                                       doses=aDoses.f,
                                       Lx=aLxTx.f,
-                                      Lx.error=aLxTx.f)
+                                      Lx.error=aLxTx.f.error)
 
     aLxTx.a <- as.matrix(get_TLum.Results(temp.data, "Lx"))
     aLxTx.a.error <- as.matrix(get_TLum.Results(temp.data, "Lx.error"))
@@ -642,30 +642,40 @@ analyse_TL.MAAD <- function(
   if(length(aLx.a) > 0){
 
     # Growth curve (GC)
-    aLxTx.a.lim <- aLxTx.a[eval.min:eval.max,]
-    aLxTx.a.error.lim <- aLxTx.a.error[eval.min:eval.max,]
+    # aLxTx.a.lim <- aLxTx.a[eval.min:eval.max,]
+    # aLxTx.a.error.lim <- aLxTx.a.error[eval.min:eval.max,]
+    aLxTx.f.lim <- aLxTx.f[eval.min:eval.max,]
+    aLxTx.f.error.lim <- aLxTx.f.error[eval.min:eval.max,]
 
-    aLxTx.GC <- vector()
-    aLxTx.GC.error <- vector()
+    GC.aLxTx <- vector()
+    GC.aLxTx.error <- vector()
+    GC.aDoses <- aDoses.f
+    GC.aNames <- aNames.f
 
-    for(i in 1:length(aDoses.a)){
+    # for(i in 1:length(aDoses.a)){
+    for(i in 1:length(aDoses.f)){
 
-      temp.LxTx <- aLxTx.a.lim[,i]
-      temp.LxTx.error <- aLxTx.a.error.lim[,i]
+      # temp.LxTx <- aLxTx.a.lim[,i]
+      # temp.LxTx.error <- aLxTx.a.error.lim[,i]
+      temp.LxTx <- aLxTx.f.lim[,i]
+      temp.LxTx.error <- aLxTx.f.error.lim[,i]
       temp.LxTx.w <- 1/(temp.LxTx.error^2)
 
-      aLxTx.GC[i] <- sum(temp.LxTx.w*temp.LxTx,na.rm=TRUE)/sum(temp.LxTx.w,na.rm=TRUE)
-      aLxTx.GC.error[i] <- 1/sqrt(sum(temp.LxTx.w))
+      GC.aLxTx[i] <- sum(temp.LxTx.w*temp.LxTx,na.rm=TRUE)/sum(temp.LxTx.w,na.rm=TRUE)
+      GC.aLxTx.error[i] <- 1/sqrt(sum(temp.LxTx.w,na.rm = TRUE))
     }
 
     # Q (GC)
 
       #Data
-    temp.bool <- aDoses.a >= fit.aDoses.min & aDoses.a <= fit.aDoses.max
-    temp.doses <- aDoses.a[aDoses.a >= fit.aDoses.min & aDoses.a <= fit.aDoses.max]
-    temp.LxTx <- aLxTx.GC[aDoses.a >= fit.aDoses.min & aDoses.a <= fit.aDoses.max]
-    temp.LxTx.error <- aLxTx.GC.error[aDoses.a >= fit.aDoses.min & aDoses.a <= fit.aDoses.max]
+    # temp.bool <- aDoses.a >= fit.aDoses.min & aDoses.a <= fit.aDoses.max
+    temp.bool <- aDoses.f >= fit.aDoses.min & aDoses.f <= fit.aDoses.max
 
+    # temp.doses <- aDoses.a[temp.bool]
+    temp.doses <- aDoses.f[temp.bool]
+
+    temp.LxTx <- GC.aLxTx[temp.bool]
+    temp.LxTx.error <- GC.aLxTx.error[temp.bool]
 
     temp.fit <- calc_TL.MAAD.fit.Q(LxTx = temp.LxTx,
                                 LxTx.error = temp.LxTx.error,
@@ -684,13 +694,18 @@ analyse_TL.MAAD <- function(
     Q.DP.slope <- list()
 
     for(i in 1:length(temperatures)){
-      temp.aLxTx <- aLxTx.a[i,]
-      temp.aLxTx.error <- aLxTx.a.error[i,]
+      # temp.aLxTx <- aLxTx.a[i,]
+      # temp.aLxTx.error <- aLxTx.a.error[i,]
+      temp.aLxTx <- aLxTx.f[i,]
+      temp.aLxTx.error <- aLxTx.f.error[i,]
 
       # Data
-      temp.bool <- aDoses.a >= fit.aDoses.min & aDoses.a <= fit.aDoses.max
+      # temp.bool <- aDoses.a >= fit.aDoses.min & aDoses.a <= fit.aDoses.max
+      temp.bool <- aDoses.f >= fit.aDoses.min & aDoses.f <= fit.aDoses.max
 
-      temp.doses <- aDoses.a[temp.bool]
+      # temp.doses <- aDoses.a[temp.bool]
+      temp.doses <- aDoses.f[temp.bool]
+
       temp.LxTx <- temp.aLxTx[temp.bool]
       temp.LxTx.error <- temp.aLxTx.error[temp.bool]
 
@@ -722,8 +737,8 @@ analyse_TL.MAAD <- function(
     Q.DP.a <- sum(Q.DP.lim.w*Q.DP.lim,na.rm=TRUE)/sum(Q.DP.lim.w,na.rm=TRUE)
     Q.DP.a.error <- 1/sqrt(sum(Q.DP.lim.w, na.rm = TRUE))
   }else{
-    aLxTx.GC <- vector()
-    aLxTx.GC.error <- vector()
+    GC.aLxTx <- vector()
+    GC.aLxTx.error <- vector()
 
     GC.Q <- vector()
 
@@ -747,33 +762,46 @@ analyse_TL.MAAD <- function(
   }
 
   # ------------------------------------------------------------------------------
-  # Sublinearity correction - I
+  # supralinearity correction - I
   # ------------------------------------------------------------------------------
 
   if(length(rLxTx.a) > 0){
 
     # Growth curve
-    rLxTx.a.w <- 1/(rLxTx.a.error^2)
+    # rLxTx.a.w <- 1/(rLxTx.a.error^2)
+    #
+    # rLxTx.a.lim <- rLxTx.a[eval.min:eval.max,]
+    # rLxTx.a.w.lim <- rLxTx.a.w[eval.min:eval.max,]
 
-    rLxTx.a.lim <- rLxTx.a[eval.min:eval.max,]
-    rLxTx.a.w.lim <- rLxTx.a.w[eval.min:eval.max,]
+    rLxTx.f.lim <- rLxTx.f[eval.min:eval.max,]
+    rLxTx.f.error.lim <- rLxTx.f.error[eval.min:eval.max,]
 
     GC.rLxTx <- vector()
     GC.rLxTx.error <- vector()
+    GC.rDoses <- rDoses.f
+    GC.rNames <- rNames.f
 
-    for(i in 1:length(rDoses.a)){
+    # for(i in 1:length(rDoses.a)){
+    for(i in 1:length(rDoses.f)){
 
-      temp.LxTx <- rLxTx.a.lim[,i]
-      temp.LxTx.w <- rLxTx.a.w.lim[,i]
+      # temp.LxTx <- rLxTx.a.lim[,i]
+      # temp.LxTx.w <- rLxTx.a.w.lim[,i]
+      temp.LxTx <- rLxTx.f.lim[,i]
+      temp.LxTx.error <- rLxTx.f.error.lim[,i]
+      temp.LxTx.w <- 1/(temp.LxTx.error^2)
 
       GC.rLxTx[i] <- sum(temp.LxTx.w*temp.LxTx, na.rm=TRUE)/sum(temp.LxTx.w, na.rm=TRUE)
-      GC.rLxTx.error[i] <- 1/sqrt(sum(temp.LxTx.w))
+      GC.rLxTx.error[i] <- 1/sqrt(sum(temp.LxTx.w,na.rm = TRUE))
     }
 
     #I (GC)
       # Data
-    temp.bool <- rDoses.a >= fit.rDoses.min & rDoses.a <= fit.rDoses.max
-    temp.doses <- rDoses.a[temp.bool]
+    # temp.bool <- rDoses.a >= fit.rDoses.min & rDoses.a <= fit.rDoses.max
+    temp.bool <- rDoses.f >= fit.rDoses.min & rDoses.f <= fit.rDoses.max
+
+    # temp.doses <- rDoses.a[temp.bool]
+    temp.doses <- rDoses.f[temp.bool]
+
     temp.LxTx <- GC.rLxTx[temp.bool]
     temp.LxTx.error <- GC.rLxTx.error[temp.bool]
 
@@ -809,15 +837,21 @@ analyse_TL.MAAD <- function(
     I.DP.slope <- list()
 
     for(i in 1:length(temperatures)){
-      temp.rLxTx <- rLxTx.a[i,]
-      temp.rLxTx.error <- rLxTx.a.error[i,]
+      # temp.rLxTx <- rLxTx.a[i,]
+      # temp.rLxTx.error <- rLxTx.a.error[i,]
+      temp.rLxTx <- rLxTx.f[i,]
+      temp.rLxTx.error <- rLxTx.f.error[i,]
 
-      #temp.rLxTx.w <-rLxTx.a.w[i,]
 
         # selection of the doses used
-      temp.dose <- rDoses.a[rDoses.a >= fit.rDoses.min & rDoses.a <= fit.rDoses.max]
-      temp.LxTx <- temp.rLxTx[rDoses.a >= fit.rDoses.min & rDoses.a <= fit.rDoses.max]
-      temp.LxTx.error <- temp.rLxTx.error[rDoses.a >= fit.rDoses.min & rDoses.a <= fit.rDoses.max]
+      # temp.bool <- rDoses.a >= fit.rDoses.min & rDoses.a <= fit.rDoses.max
+      temp.bool <- rDoses.f >= fit.rDoses.min & rDoses.f <= fit.rDoses.max
+
+      # temp.dose <- rDoses.a[temp.bool]
+      temp.dose <- rDoses.f[temp.bool]
+
+      temp.LxTx <- temp.rLxTx[temp.bool]
+      temp.LxTx.error <- temp.rLxTx.error[temp.bool]
 
       #Regression
       if(length(GC.Q)>0){
@@ -922,6 +956,54 @@ analyse_TL.MAAD <- function(
   # ------------------------------------------------------------------------------
 
   if(!no.plot){
+    # plot_TL.MAAD(sample.name=sample.name,
+    #              fitting.parameters=fitting.parameters,
+    #              temperatures=temperatures,
+    #              eval.Tmin=eval.Tmin,
+    #              eval.Tmax=eval.Tmax,
+    #              aNames=aNames.a,
+    #              aDoses=aDoses.a,
+    #              aLx=aLx.a,
+    #              aTx=aTx.a,
+    #              aLxTx=aLxTx.a,
+    #              aLx.plateau=aLx.a.plateau,
+    #              aTx.plateau=aTx.a.plateau,
+    #              aLxTx.plateau=aLxTx.a.plateau,
+    #              rNames=rNames.a,
+    #              rDoses=rDoses.a,
+    #              rLx=rLx.a,
+    #              rTx=rTx.a,
+    #              rLxTx=rLxTx.a,
+    #              rLx.plateau=rLx.a.plateau,
+    #              rTx.plateau=rTx.a.plateau,
+    #              rLxTx.plateau=rLxTx.a.plateau,
+    #              DP.Q.line=Q.DP,
+    #              DP.Q.line.error=Q.DP.error,
+    #              GC.Q.slope=Q.GC.slope,
+    #              GC.Q.line=GC.Q,
+    #              GC.Q.LxTx=GC.aLxTx,
+    #              GC.Q.LxTx.error=GC.aLxTx.error,
+    #              DP.I.line=I.DP,
+    #              DP.I.line.error=I.DP.error,
+    #              GC.I.slope=I.GC.slope,
+    #              GC.I.line=GC.I,
+    #              GC.I.LxTx=GC.rLxTx,
+    #              GC.I.LxTx.error=GC.rLxTx.error,
+    #              Q.DP=Q.DP.a,
+    #              Q.DP.error=Q.DP.a.error,
+    #              Q.GC=Q.GC,
+    #              Q.GC.error=Q.GC.error,
+    #              I.DP=I.DP.a,
+    #              I.DP.error=I.DP.a.error,
+    #              I.GC=I.GC,
+    #              I.GC.error=I.GC.error,
+    #              De.GC=De.GC,
+    #              De.GC.error=De.GC.error,
+    #              De.DP=De.DP,
+    #              De.DP.error=De.DP.error,
+    #              rejection.values=rejection.values,
+    #              plotting.parameters=plotting.parameters
+    # )
     plot_TL.MAAD(sample.name=sample.name,
                  fitting.parameters=fitting.parameters,
                  temperatures=temperatures,
@@ -947,14 +1029,18 @@ analyse_TL.MAAD <- function(
                  DP.Q.line.error=Q.DP.error,
                  GC.Q.slope=Q.GC.slope,
                  GC.Q.line=GC.Q,
-                 GC.Q.LxTx=GC.rLxTx,
-                 GC.Q.LxTx.error=GC.rLxTx.error,
+                 GC.Q.LxTx=GC.aLxTx,
+                 GC.Q.LxTx.error=GC.aLxTx.error,
+                 GC.Q.doses = GC.aDoses,
+                 GC.Q.names = GC.aNames,
                  DP.I.line=I.DP,
                  DP.I.line.error=I.DP.error,
                  GC.I.slope=I.GC.slope,
                  GC.I.line=GC.I,
-                 GC.I.LxTx=aLxTx.GC,
-                 GC.I.LxTx.error=aLxTx.GC.error,
+                 GC.I.LxTx=GC.rLxTx,
+                 GC.I.LxTx.error=GC.rLxTx.error,
+                 GC.I.doses=GC.rDoses,
+                 GC.I.names=GC.rNames,
                  Q.DP=Q.DP.a,
                  Q.DP.error=Q.DP.a.error,
                  Q.GC=Q.GC,

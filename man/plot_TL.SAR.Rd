@@ -91,7 +91,7 @@ See also \link{calc_TL.SAR.fit}. \cr
 The plotting parameters are:  \cr
 \describe{
  \item{\code{plot.Tmin}}{
-   \link{numeric}: Lower temperature plotted.} 
+   \link{numeric}: Lower temperature plotted.}
  \item{\code{plot.Tmax}}{
    \link{numeric}: Higher temperature plotted.}
  \item{\code{no.plot}}{

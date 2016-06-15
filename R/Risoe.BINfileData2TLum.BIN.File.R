@@ -5,11 +5,11 @@
 #'
 #' @param object
 #'  \code{\linkS4class{Risoe.BINfileData}} (\bold{required}): object containing the TL curves used for the ED estimation.
-#' @param relative.error
+#' @param k
 #'  \link{numeric} (\bold{required}): Relative error of the TL signals. Generally, it is between 0.02 and 0.1.
 #'
 #' @details
-#' This function use the data from the Risoe.BINFileData and the relative.error specified to create a absolute error matrix.
+#' This function use the data from the Risoe.BINFileData and the k specified to create a absolute error matrix.
 #' Then it create a new TLum.BIN.File including all the information from the Risoe.BINFileData and the new absolute error matrix.
 #' For practical reason, the TLdating package considers the error as random. It means that the systematic component of the error will be ignored.
 #'
@@ -23,38 +23,31 @@
 Risoe.BINfileData2TLum.BIN.File <- function(
   object,
 
-  relative.error
+  k
 
 ){
 
   # Integrity Check ---------------------------------------------------------
   if(missing(object)){
-    stop("[Risoe.BINfileData2TLum.BIN.File] Error: Input object is missing.")
+    stop("[Risoe.BINfileData2TLum.BIN.File] Error: Input 'object' is missing.")
 
   }else if(!is(object,"Risoe.BINfileData")){
-    stop("[Risoe.BINfileData2TLum.BIN.File] Error: Input object is not of type 'Risoe.BINfileData'.")
+    stop("[Risoe.BINfileData2TLum.BIN.File] Error: Input 'object' is not of type 'Risoe.BINfileData'.")
   }
 
-  if(missing(relative.error)){
-    stop("[Risoe.BINfileData2TLum.BIN.File] Error: Input relative error is missing.")
+  if(missing(k)){
+    stop("[Risoe.BINfileData2TLum.BIN.File] Error: Input 'k' is missing.")
 
-  }else if(!is.numeric(relative.error)){
-    stop("[Risoe.BINfileData2TLum.BIN.File] Error: Relative error is not of type 'numeric'.")
+  }else if(!is.numeric(k)){
+    stop("[Risoe.BINfileData2TLum.BIN.File] Error: 'k' is not of type 'numeric'.")
   }
   # ------------------------------------------------------------------------------
 
   # ------------------------------------------------------------------------------
   # Value check
-  if(relative.error > 1){
-    warning("[Risoe.BINfileData2TLum.BIN.File] Warning: Input 'relative.error' > 1.")
-
-  }else if(relative.error < -1){
-    relative.error <- abs(relative.error)
-    warning("[Risoe.BINfileData2TLum.BIN.File] Warning: Input 'relative.error' < -1.")
-
-  }else if(relative.error < 0){
-    relative.error <- abs(relative.error)
-    warning("[Risoe.BINfileData2TLum.BIN.File] Warning: Input 'relative.error' < 0.")
+  if(k < 0){
+    k <- abs(k)
+    warning("[Risoe.BINfileData2TLum.BIN.File] Warning: Input 'k' < 0.")
   }
   # ------------------------------------------------------------------------------
 
@@ -75,7 +68,7 @@ Risoe.BINfileData2TLum.BIN.File <- function(
   for(i in 1:nRecord){
 
     temp.curve <- new.data[[i]]
-    temp.absolute.error <- abs(temp.curve*relative.error)
+    temp.absolute.error <- abs(k)*sqrt(temp.curve)
     temp.error <- list(temp.absolute.error)
 
     new.error <- c(new.error, temp.error)

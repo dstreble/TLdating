@@ -12,7 +12,7 @@ SAR protocol. This package adds to the R package \link{Luminescence}.
 \details{
 \tabular{ll}{  Package: \tab TLdating \cr
                Type: \tab Package\cr
-               Version: \tab 0.1.1 \cr
+               Version: \tab 0.1.2 \cr
                Date: \tab 2016-03-01 \cr
                License: \tab GPL-3
             }
