@@ -5,6 +5,7 @@ This file report the main changes make to the package for each version.
 v0.1.3 (08/2016)
 ------
 * Output modification to make the package compatible with shiny.
+* correction typo in use_DRAC4*
 
 v0.1.2 (06/2016)
 ------
