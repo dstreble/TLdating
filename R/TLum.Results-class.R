@@ -10,6 +10,8 @@
 #'  \link{character}: contains the name of the calling function (the function that produces this object).
 #' @slot data
 #'  \link{list}: a list containing the data to be stored in the object.
+#' @slot plotData
+#'  \link{list}: a list containing the data required for plotting.
 #'
 #' @note The code and the structure of this class is based on the \linkS4class{RLum.Results} class from the \link{Luminescence} package.
 #'
@@ -24,9 +26,11 @@
 setClass(Class="TLum.Results",
          contains = "TLum",
          slots = c(originator = "character",
-                   data = "list"),
+                   data = "list",
+                   plotData="list"),
          prototype = list(originator = character(),
-                          data = list())
+                          data = list(),
+                          plotData = list())
          )
 
 
@@ -58,6 +62,7 @@ setMethod("show",
             cat("\n [TLum.Results]")
             cat("\n\t originator: ", object@originator,"()", sep="")
             cat("\n\t data:", length(object@data))
+            cat("\n\t plotData:", length(object@plotData))
             cat("\n", temp.type)
 
 
@@ -75,20 +80,23 @@ setMethod("show",
 #'  \link{character}: : contains the name of the calling function.
 #' @param data
 #'  \link{list}:  the data to be stored in the object.
+#' @param plotData
+#'  \link{list}: a list containing the data required for plotting.
 #'
 #' @exportMethod set_TLum.Results
 
 setGeneric("set_TLum.Results",
-           function(originator, data) {standardGeneric("set_TLum.Results")})
+           function(originator, data, plotData) {standardGeneric("set_TLum.Results")})
 
 #' @rdname TLum.Results-class
 #' @aliases set_TLum.Results set_TLum.Results,TLum.Results-method
 
 setMethod(f = "set_TLum.Results",
           signature = c(originator = "ANY",
-                        data = "list"),
+                        data = "list",
+                        plotData = "ANY"),
 
-          definition = function(originator, data){
+          definition = function(originator, data, plotData){
 
             if(missing(originator)){
               originator <- "Unknown"
@@ -101,9 +109,17 @@ setMethod(f = "set_TLum.Results",
               stop("[set_TLum.Results] Error: 'data' is missing.")
             }
 
+            if(missing(plotData)){
+              plotData <- list()
+
+            }else if(!is.list(plotData)){
+              stop("[set_TLum.Results] Error: 'plotData' is not of type 'list'.")
+            }
+
             new("TLum.Results",
                 originator = originator,
-                data = data)
+                data = data,
+                plotData = plotData)
           })
 
 
@@ -144,6 +160,9 @@ setMethod("get_TLum.Results",
 
             }else if(ref == "originator"){
               res <- object@originator
+
+            }else if(ref == "plotData" || ref == "plot"){
+              res <- object@plotData
 
             }else{
               stop("[get_TLum.Results] Error: Input 'ref' is unknown.")

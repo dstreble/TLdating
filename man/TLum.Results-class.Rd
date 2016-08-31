@@ -13,9 +13,9 @@
 \usage{
 \S4method{show}{TLum.Results}(object)
 
-set_TLum.Results(originator, data)
+set_TLum.Results(originator, data, plotData)
 
-\S4method{set_TLum.Results}{ANY,list}(originator, data)
+\S4method{set_TLum.Results}{ANY,list}(originator, data, plotData)
 
 get_TLum.Results(object, ref)
 
@@ -28,6 +28,8 @@ get_TLum.Results(object, ref)
 
 \item{data}{\link{list}:  the data to be stored in the object.}
 
+\item{plotData}{\link{list}: a list containing the data required for plotting.}
+
 \item{ref}{\link{character}: name of the 'data' slot to be returned.}
 }
 \description{
@@ -39,6 +41,8 @@ Object class contains results data from functions.
 \item{\code{originator}}{\link{character}: contains the name of the calling function (the function that produces this object).}
 
 \item{\code{data}}{\link{list}: a list containing the data to be stored in the object.}
+
+\item{\code{plotData}}{\link{list}: a list containing the data required for plotting.}
 }}
 \note{
 The code and the structure of this class is based on the \linkS4class{RLum.Results} class from the \link{Luminescence} package.

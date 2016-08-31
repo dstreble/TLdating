@@ -17,7 +17,7 @@
 #'
 #' @author David Strebler
 #'
-## @export plot_substract.background
+#' @export plot_substract.background
 
 plot_substract.background <- function(
 

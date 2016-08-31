@@ -55,16 +55,16 @@ calc_TL.plateau <- function(
     stop("[calc_TL.plateau] Warning: Error is missing.")
   }
 
-  if (!is(Ln,"numeric")){
+  if (!is.numeric(Ln)){
     stop("[calc_TL.plateau] Error: Input Ln is not of type 'numeric'.")
   }
-  if (!is(Ln.error,"numeric")){
+  if (!is.numeric(Ln.error)){
     stop("[calc_TL.plateau] Error: Input Ln.error is not of type 'numeric'.")
   }
-  if (!is(Lx,"matrix")){
+  if (!is.matrix(Lx)){
     stop("[calc_TL.plateau] Error: Input Lx is not of type 'matrix'.")
   }
-  if (!is(Lx.error,"matrix")){
+  if (!is.matrix(Lx.error)){
     stop("[calc_TL.plateau] Error: Input Lx.error is not of type 'matrix'.")
   }
   if(length(Ln) != length(Ln.error)){
@@ -123,7 +123,12 @@ calc_TL.plateau <- function(
                  Error=LnLx.error
                  )
 
-  new.TLum.Results.calc_TL.plateau <- set_TLum.Results(data = result)
+  new.originator <- as.character(match.call()[[1]])
+  new.plotData <- list()
+
+  new.TLum.Results.calc_TL.plateau <- set_TLum.Results(originator= new.originator,
+                                                       data = result,
+                                                       plotData = new.plotData)
 
   return (new.TLum.Results.calc_TL.plateau)
 }

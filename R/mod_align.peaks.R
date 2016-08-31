@@ -79,11 +79,6 @@ mod_align.peaks <- function(
   peak.Tmax <- aligning.parameters$peak.Tmax
   no.testdose <- aligning.parameters$no.testdose
 
-  no.plot <- plotting.parameters$no.plot
-
-
-  protocol <- object@protocol
-
   nRecords <- length(object@records)
 
   nChannel <- vector()
@@ -136,10 +131,6 @@ mod_align.peaks <- function(
 
   if(is.null(no.testdose) || is.na(no.testdose) || !is.logical(no.testdose)){
     no.testdose <- FALSE
-  }
-
-  if(is.null(no.plot) || is.na(no.plot) || !is.logical(no.plot)){
-    no.plot <- FALSE
   }
   # ------------------------------------------------------------------------------
 
@@ -270,30 +261,10 @@ mod_align.peaks <- function(
   }
 
   #----------------------------------------------------------------------------------------------
-  #Plot results
+  # Generate TLum.Analysis
   #----------------------------------------------------------------------------------------------
 
-  if(!no.plot){
-    if(length(Tx) > 0 || !no.testdose){
-      plot_align.peaks(temperatures=temperatures,
-                       old.TL=TL,
-                       new.TL=new.TL,
-                       ref.TL=Tx,
-                       pos.peak=Tpeak,
-                       plotting.parameters=plotting.parameters)
-    }else{
-      plot_align.peaks(temperatures=temperatures,
-                       old.TL=TL,
-                       new.TL=new.TL,
-                       ref.TL=Lx,
-                       pos.peak=Tpeak,
-                       plotting.parameters=plotting.parameters)
-    }
-  }
-
-  #----------------------------------------------------------------------------------------------
-  # New TLum.Analysis
-  #----------------------------------------------------------------------------------------------
+  new.protocol <- object@protocol
 
   new.records <- list()
 
@@ -310,8 +281,51 @@ mod_align.peaks <- function(
 
   }
 
+  new.history <- c(object@history,
+                   as.character(match.call()[[1]])
+                   )
+
+  if(length(Tx) > 0 || !no.testdose){
+    new.plotData <- list(temperatures=temperatures,
+                         old.TL=TL,
+                         new.TL=new.TL,
+                         ref.TL=Tx,
+                         pos.peak=Tpeak,
+                         plotting.parameters=plotting.parameters)
+  }else{
+    new.plotData <- list(temperatures=temperatures,
+                         old.TL=TL,
+                         new.TL=new.TL,
+                         ref.TL=Lx,
+                         pos.peak=Tpeak,
+                         plotting.parameters=plotting.parameters)
+  }
+
+  new.plotHistory <- object@plotHistory
+  new.plotHistory[[length(new.plotHistory)+1]] <- new.plotData
+
   new.analysis <- set_TLum.Analysis(records = new.records,
-                                    protocol = protocol)
+                                    protocol = new.protocol,
+                                    history = new.history,
+                                    plotHistory = new.plotHistory)
+
+  #----------------------------------------------------------------------------------------------
+  #Plot results
+  #----------------------------------------------------------------------------------------------
+  no.plot <- plotting.parameters$no.plot
+
+  if(is.null(no.plot) || is.na(no.plot) || !is.logical(no.plot)){
+    no.plot <- FALSE
+  }
+
+  if(!no.plot){
+    do.call(plot_align.peaks,
+            new.plotData)
+  }
+
+  #----------------------------------------------------------------------------------------------
+  #Return results
+  #----------------------------------------------------------------------------------------------
 
   return(new.analysis)
 }

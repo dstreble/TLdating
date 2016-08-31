@@ -339,12 +339,18 @@ calc_TL.MAAD.fit.I <- function(
     warning("[calc_TL.MAAD.fit.I] Warning: I is not finite.")
   }
 
+  new.originator <- as.character(match.call()[[1]])
+
   result <- list(GC=fit,
                  I=I,
                  I.error=I.error,
                  summary=s)
 
-  new.TLum.Results.calc_TL.MAAD.fit.I <- set_TLum.Results(data = result)
+  new.plotData <- list()
+
+  new.TLum.Results.calc_TL.MAAD.fit.I <- set_TLum.Results(originator= new.originator,
+                                                          data = result,
+                                                          plotData = new.plotData)
 
   return (new.TLum.Results.calc_TL.MAAD.fit.I)
 }

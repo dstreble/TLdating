@@ -30,7 +30,7 @@
 #'  
 #' @author David Strebler
 #' 
-## @export plot_align.peaks
+#' @export plot_align.peaks
 
 plot_align.peaks <- function(
 

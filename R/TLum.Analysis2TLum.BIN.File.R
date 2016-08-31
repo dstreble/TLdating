@@ -18,7 +18,7 @@
 #'
 #' @author David Strebler, University of Cologne (Germany), \cr David Strebler
 #'
-#' @export TLum.BIN.File2TLum.Analysis
+#' @export TLum.Analysis2TLum.BIN.File
 
 
 TLum.Analysis2TLum.BIN.File <- function(

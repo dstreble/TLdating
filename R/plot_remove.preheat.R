@@ -18,7 +18,7 @@
 #'
 #' @author David Strebler
 #'
-## @export plot_remove.preheat
+#' @export plot_remove.preheat
 
 plot_remove.preheat <- function(
 

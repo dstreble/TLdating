@@ -9,6 +9,10 @@
 #'  \link{character}: Protocol used for the analysis.
 #' @slot records
 #'  \link{list}: \linkS4class{TLum.Data.Curve} included in the analysis.
+#' @slot history
+#'  \link{character}: Vector containing the previous modification made on the data set.
+#' @slot plotHistory
+#'  \link{list}: Data for plotting the evolution of the data set.
 #'
 #' @note The code and the structure of this class is based on the \linkS4class{RLum.Analysis} class from the \link{Luminescence} package.
 #'
@@ -23,9 +27,13 @@
 setClass(Class= "TLum.Analysis",
          contains = "TLum",
          slots= c(records = "list",
-                  protocol = "character"),
+                  protocol = "character",
+                  history = "character",
+                  plotHistory = "list"),
          prototype = list (records = list(),
-                           protocol = "UNKNOWN")
+                           protocol = "UNKNOWN",
+                           history = "UNKNOWN",
+                           plotHistory = list())
          )
 
 
@@ -85,6 +93,14 @@ setMethod("show",
                 }
               }
 
+              cat("\n\t history:", length(object@history))
+              if(length(object@history) > 0){
+                for(i in 1:length(object@history)){
+                  cat("\n\t ..:", object@history[i],
+                      "(plotData:",length(object@plotHistory[[i]]), ")")
+                }
+              }
+
             }else{
 
               cat("\n\t >> This is an empty object and cannot be used for further analysis! <<")
@@ -102,11 +118,15 @@ setMethod("show",
 #'  \link{list}: list of \linkS4class{TLum.Data.Curve} objects
 #' @param protocol
 #'  \link{character}: protocol type for analysis object.
+#' @param history
+#'  \link{character}: Vector containing the previous modification made on the data set.
+#' @param plotHistory
+#'  \link{list}: Data for plotting the evolution of the data set.
 #'
 #' @exportMethod set_TLum.Analysis
 
 setGeneric("set_TLum.Analysis",
-           function(records, protocol) {standardGeneric("set_TLum.Analysis")})
+           function(records, protocol, history, plotHistory) {standardGeneric("set_TLum.Analysis")})
 
 
 #' @rdname TLum.Analysis-class
@@ -114,9 +134,11 @@ setGeneric("set_TLum.Analysis",
 
 setMethod(f = "set_TLum.Analysis",
           signature = c(records = "list",
-                        protocol= "ANY"),
+                        protocol= "ANY",
+                        history = "character",
+                        plotHistory = "list"),
 
-          definition = function(records, protocol){
+          definition = function(records, protocol, history, plotHistory){
             if(missing(protocol)){
               protocol <- "UNKNOWN"
 
@@ -124,9 +146,25 @@ setMethod(f = "set_TLum.Analysis",
               stop("[set_TLum.Analysis] Error: 'protocol' has to be of type 'character'!")
             }
 
+            if(missing(history)){
+              history <- "UNKNOWN"
+
+            }else if (!is.character(history)){
+              stop("[set_TLum.Analysis] Error: 'history' has to be of type 'character'!")
+            }
+
+            if(missing(plotHistory)){
+              history <- list()
+
+            }else if (!is.list(plotHistory)){
+              stop("[set_TLum.Analysis] Error: 'plotHistory' has to be of type 'list'!")
+            }
+
             new("TLum.Analysis",
                 protocol = protocol,
-                records = records
+                records = records,
+                history=history,
+                plotHistory=plotHistory
             )
           })
 
@@ -312,7 +350,10 @@ setMethod("get_TLum.Analysis",
 
                 if(keep.object == TRUE){
 
-                  temp <- set_TLum.Analysis(records = temp, protocol = object@protocol)
+                  temp <- set_TLum.Analysis(records = temp,
+                                            protocol = object@protocol,
+                                            history = object@history,
+                                            plotHistory = object@plotHistory)
                   return(temp)
 
                 }else{
@@ -340,7 +381,9 @@ setMethod("get_TLum.Analysis",
 
                   ##needed to keep the argument keep.object == TRUE
                   temp <- set_TLum.Analysis(records = list(object@records[[record.id]]),
-                                            protocol = object@protocol)
+                                            protocol = object@protocol,
+                                            history = object@history,
+                                            plotHistory = object@plotHistory)
                   return(temp)
 
                 }else{

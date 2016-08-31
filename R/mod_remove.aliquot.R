@@ -39,12 +39,11 @@ mod_remove.aliquot <- function(
   }
   # ------------------------------------------------------------------------------
 
-  protocol <- object@protocol
   nRecord <- length(object@records)
 
   #temp.id <- 0
 
-  new.records <- list()
+  temp.records <- list()
 
   for(i in 1:nRecord){
     temp.curve <- object@records[[i]]
@@ -56,13 +55,39 @@ mod_remove.aliquot <- function(
 
       #temp.curve@metadata$ID <- temp.id
 
-      new.records <- c(new.records, temp.curve)
+      temp.records <- c(temp.records, temp.curve)
 
     }
   }
 
+  #----------------------------------------------------------------------------------------------
+  # Generate TLum.Analysis
+  #----------------------------------------------------------------------------------------------
+
+  new.records <- temp.records
+
+  new.protocol <- object@protocol
+
+  new.history <- c(object@history,
+                   as.character(match.call()[[1]]))
+
+  new.plotData <- list()
+
+  new.plotHistory <- object@plotHistory
+  new.plotHistory[[length(new.plotHistory)+1]] <- new.plotData
+
   new.analysis <- set_TLum.Analysis(records = new.records,
-                                    protocol = protocol)
+                                    protocol = new.protocol,
+                                    history = new.history,
+                                    plotHistory = new.plotHistory)
+
+  #--------------------------------------------------------------------------------------------------------
+  #Plot results
+  #--------------------------------------------------------------------------------------------------------
+
+  #----------------------------------------------------------------------------------------------
+  #Return results
+  #----------------------------------------------------------------------------------------------
 
   return(new.analysis)
 }

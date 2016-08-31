@@ -608,6 +608,63 @@ analyse_TL.SAR <- function(
   Q.GC.error <- get_TLum.Results(temp.fit, "Q.error")
   Q.GC.slope <- get_TLum.Results(temp.fit, "summary")
 
+  #----------------------------------------------------------------------------------------------------------------
+  # Generate results
+  #----------------------------------------------------------------------------------------------------------------
+
+  new.originator <- as.character(match.call()[[1]])
+
+  new.De.DP <- data.frame(De=Q.DP.a,
+                          De.error=Q.DP.a.error)
+
+  new.De.GC <- data.frame(De=Q.GC,
+                         De.error=Q.GC.error)
+
+  rejection.results <- data.frame(criteria = c("Recycling ratio", "Recuperation rate", "Lx error", "Tx error"),
+                                           value = c(recycling.ratio, recuperation.rate, Lx.error.max, Tx.error.max),
+                                           threshold = c(recycling.limit, recuperation.limit, Lx.error.criteria, Tx.error.criteria),
+                                           status = c(recycling.result, recuperation.result, Lx.error.result, Tx.error.result)
+                                           )
+
+  new.data <- list(DP = new.De.DP,
+                   GC = new.De.GC,
+                   LnLxTnTx.table = rLxTx,
+                   rejection.criteria = rejection.results,
+                   RC.Status=acceptance.result)
+
+  new.plotData <- list(sample.name=sample.name,
+                       sample.position=sample.position,
+                       plotting.parameters=plotting.parameters,
+                       fitting.parameters=fitting.parameters,
+                       eval.Tmin=eval.Tmin,
+                       eval.Tmax=eval.Tmax,
+                       temperatures=temperatures,
+                       names=rNames,
+                       names.duplicated=rNames.duplicated,
+                       doses=rDoses,
+                       Lx=rLx,
+                       Tx=rTx,
+                       LxTx=rLxTx,
+                       Lx.plateau=rLx.plateau,
+                       Tx.plateau=rTx.plateau,
+                       LxTx.plateau=rLxTx.plateau,
+                       DP.Q.line=Q.DP,
+                       DP.Q.line.error=Q.DP.error,
+                       Q.DP = Q.DP.a,
+                       Q.DP.error = Q.DP.a.error,
+                       GC.Q.line=GC.Q.line,
+                       GC.Q.slope=Q.GC.slope,
+                       GC.Q.LxTx = GC.rLxTx,
+                       GC.Q.LxTx.error=GC.rLxTx.error,
+                       Q.GC=Q.GC,
+                       Q.GC.error=Q.GC.error,
+                       TxTn=TxTn,
+                       rejection.values=rejection.values
+                       )
+
+  new.TLum.Results.analyse_TL.SAR <- set_TLum.Results(originator = new.originator,
+                                                      data = new.data,
+                                                      plotData = new.plotData)
 
   #----------------------------------------------------------------------------------------------------------------
   #Plot results
@@ -622,58 +679,10 @@ analyse_TL.SAR <- function(
   # ------------------------------------------------------------------------------
 
   if(!no.plot){
-    plot_TL.SAR(sample.name=sample.name,
-                sample.position=sample.position,
-                plotting.parameters=plotting.parameters,
-                fitting.parameters=fitting.parameters,
-                eval.Tmin=eval.Tmin,
-                eval.Tmax=eval.Tmax,
-                temperatures=temperatures,
-                names=rNames,
-                names.duplicated=rNames.duplicated,
-                doses=rDoses,
-                Lx=rLx,
-                Tx=rTx,
-                LxTx=rLxTx,
-                Lx.plateau=rLx.plateau,
-                Tx.plateau=rTx.plateau,
-                LxTx.plateau=rLxTx.plateau,
-                DP.Q.line=Q.DP,
-                DP.Q.line.error=Q.DP.error,
-                Q.DP = Q.DP.a,
-                Q.DP.error = Q.DP.a.error,
-                GC.Q.line=GC.Q.line,
-                GC.Q.slope=Q.GC.slope,
-                GC.Q.LxTx = GC.rLxTx,
-                GC.Q.LxTx.error=GC.rLxTx.error,
-                Q.GC=Q.GC,
-                Q.GC.error=Q.GC.error,
-                TxTn=TxTn,
-                rejection.values=rejection.values
-                )
+    do.call(plot_TL.SAR,
+            new.plotData
+            )
   }
-
-  #----------------------------------------------------------------------------------------------------------------
-  # Export results
-  #----------------------------------------------------------------------------------------------------------------
-
-  new.De.DP <- data.frame(De=Q.DP.a,
-                          De.error=Q.DP.a.error)
-
-  new.De.GC <- data.frame(De=Q.GC,
-                         De.error=Q.GC.error)
-
-  rejection.results <- data.frame(criteria = c("Recycling ratio", "Recuperation rate", "Lx error", "Tx error"),
-                                           value = c(recycling.ratio, recuperation.rate, Lx.error.max, Tx.error.max),
-                                           threshold = c(recycling.limit, recuperation.limit, Lx.error.criteria, Tx.error.criteria),
-                                           status = c(recycling.result, recuperation.result, Lx.error.result, Tx.error.result)
-                                           )
-
-  new.TLum.Results.analyse_TL.SAR <- set_TLum.Results(data = list(DP = new.De.DP,
-                                                                  GC = new.De.GC,
-                                                                  LnLxTnTx.table = rLxTx,
-                                                                  rejection.criteria = rejection.results,
-                                                                  RC.Status=acceptance.result))
 
   return(new.TLum.Results.analyse_TL.SAR)
 }

@@ -134,12 +134,18 @@ calc_TL.MAAD.average <- function(
   new.Lx.error[!is.finite(new.Lx.error)] <- NA
   # ---------------------------------------------------------------------
 
+  new.originator <- as.character(match.call()[[1]])
+
   result <- list(names=new.names,
                   doses=new.doses,
                   Lx=new.Lx,
                   Lx.error=new.Lx.error)
 
-  new.TLum.Results.calc_TL.MAAD.average <- set_TLum.Results(data = result)
+  new.plotData <- list()
+
+  new.TLum.Results.calc_TL.MAAD.average <- set_TLum.Results(originator= new.originator,
+                                                            data = result,
+                                                            plotData = new.plotData)
 
   return(new.TLum.Results.calc_TL.MAAD.average)
 }

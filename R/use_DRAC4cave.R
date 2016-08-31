@@ -988,7 +988,7 @@ use_DRAC4cave <- function (
                    ext.Dr.err = R.ext.Dr.err,
                    env.Dr = R.env.Dr,
                    env.Dr.err = R.env.Dr.err,
-                   Da = R.alpha.Dr,
+                   alpha.Dr = R.alpha.Dr,
                    alpha.Dr.err = R.alpha.Dr.err,
                    beta.Dr = R.beta.Dr,
                    beta.Dr.err = R.beta.Dr.err,

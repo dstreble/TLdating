@@ -746,19 +746,19 @@ use_DRAC4flint <- function (
   # DRAC results
   # Partial dose rate
   DRAC.int.Dr <- temp.int.alpha+temp.int.beta
-  DRAC.int.Dr.err <- sqrt(sum(temp.int.alpha.err^2, temp.int.beta^2))
+  DRAC.int.Dr.err <- sqrt(sum(temp.int.alpha.err^2, temp.int.beta.err^2))
 
   DRAC.ext.Dr <- temp.ext.alpha+temp.ext.beta
-  DRAC.ext.Dr.err <- sqrt(sum(temp.ext.alpha.err^2, temp.ext.beta^2))
+  DRAC.ext.Dr.err <- sqrt(sum(temp.ext.alpha.err^2, temp.ext.beta.err^2))
 
   DRAC.env.Dr <- temp.env.gamma+temp.cosmic
   DRAC.env.Dr.err <- sqrt(sum(temp.env.gamma.err^2, temp.cosmic.err^2))
 
   DRAC.alpha.Dr <- temp.int.alpha+temp.ext.alpha
-  DRAC.alpha.Dr.err <- sqrt(sum(temp.int.alpha.err^2, temp.ext.alpha^2))
+  DRAC.alpha.Dr.err <- sqrt(sum(temp.int.alpha.err^2, temp.ext.alpha.err^2))
 
   DRAC.beta.Dr <- temp.int.beta+temp.ext.beta
-  DRAC.beta.Dr.err <- sqrt(sum(temp.int.beta.err^2, temp.ext.beta^2))
+  DRAC.beta.Dr.err <- sqrt(sum(temp.int.beta.err^2, temp.ext.beta.err^2))
 
   DRAC.gamma.Dr <- temp.env.gamma
   DRAC.gamma.Dr.err <- temp.env.gamma.err
@@ -869,7 +869,7 @@ use_DRAC4flint <- function (
                    ext.Dr.err = R.ext.Dr.err,
                    env.Dr = R.env.Dr,
                    env.Dr.err = R.env.Dr.err,
-                   Da = R.alpha.Dr,
+                   alpha.Dr = R.alpha.Dr,
                    alpha.Dr.err = R.alpha.Dr.err,
                    beta.Dr = R.beta.Dr,
                    beta.Dr.err = R.beta.Dr.err,

@@ -89,8 +89,31 @@ TLum.BIN.File2TLum.Analysis <- function(
     new.records <- c(new.records, temp.record)
   }
 
-  new.TLum.Analysis <- set_TLum.Analysis(records = new.records,
-                                         protocol = protocol)
+  #----------------------------------------------------------------------------------------------
+  # Generate TLum.Analysis
+  #----------------------------------------------------------------------------------------------
+
+  new.protocol <- protocol
+
+  new.history <- as.character(match.call()[[1]])
+
+  new.plotData <- list()
+
+  new.plotHistory <- list()
+  new.plotHistory[[1]] <- new.plotData
+
+  new.TLum.Analysis <- set_TLum.Analysis(records= new.records,
+                                         protocol=new.protocol,
+                                         history = new.history,
+                                         plotHistory = new.plotHistory)
+
+  #----------------------------------------------------------------------------------------------
+  #Plot results
+  #----------------------------------------------------------------------------------------------
+
+  #----------------------------------------------------------------------------------------------
+  #Return results
+  #----------------------------------------------------------------------------------------------
 
   return(new.TLum.Analysis)
 }

@@ -60,7 +60,6 @@ RLum.Analysis2TLum.Analysis <- function(
 
   nRecords <- length(object@records)
 
-  new.protocol <- object@protocol
   records <- object@records
 
   new.records <- list()
@@ -95,7 +94,30 @@ RLum.Analysis2TLum.Analysis <- function(
     new.records <- c(new.records, temp.TLum.data.curve)
   }
 
-  new.TLum.Analysis <- set_TLum.Analysis(new.records, new.protocol)
+  #----------------------------------------------------------------------------------------------
+  # Generate TLum.Analysis
+  #----------------------------------------------------------------------------------------------
+
+  new.protocol <- object@protocol
+
+  new.history <- as.character(match.call()[[1]])
+
+  new.plotData <- list()
+
+  new.plotHistory <- list()
+  new.plotHistory[[1]] <- new.plotData
+
+  new.TLum.Analysis <- set_TLum.Analysis(records= new.records,
+                                         protocol=new.protocol,
+                                         history = new.history,
+                                         plotHistory = new.plotHistory)
+  #----------------------------------------------------------------------------------------------
+  #Plot results
+  #----------------------------------------------------------------------------------------------
+
+  #----------------------------------------------------------------------------------------------
+  #Return results
+  #----------------------------------------------------------------------------------------------
 
   return(new.TLum.Analysis)
 }

@@ -225,6 +225,9 @@ calc_TL.LxTx <- function(
   LxTx[!is.finite(LxTx)] <- NA
   LxTx.error[!is.finite(LxTx.error)] <- NA
 
+
+  new.originator <- as.character(match.call()[[1]])
+
   result <- list(Temperatures=temperatures,
                  Names=names,
                  Datatypes=dTypes,
@@ -238,7 +241,11 @@ calc_TL.LxTx <- function(
                  Tx.error=as.data.frame(Tx.error)
                  )
 
-  new.TLum.Results.calc_TL.LxTx <- set_TLum.Results(data = result)
+  new.plotData <- list()
+
+  new.TLum.Results.calc_TL.LxTx <- set_TLum.Results(originator= new.originator,
+                                                    data = result,
+                                                    plotData = new.plotData)
 
   return (new.TLum.Results.calc_TL.LxTx)
 }

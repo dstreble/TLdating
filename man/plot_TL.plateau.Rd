@@ -39,7 +39,7 @@ This function plots the results for \link{analyse_TL.plateau}.
 The plotting parameters are:  \cr
 \describe{
  \item{\code{plot.Tmin}}{
-   \link{numeric}: Lowest temperature plotted.} 
+   \link{numeric}: Lowest temperature plotted.}
  \item{\code{plot.Tmax}}{
    \link{numeric}: Highest temperature plotted.}
  \item{\code{no.plot}}{

@@ -941,127 +941,11 @@ analyse_TL.MAAD <- function(
     De.DP.error <- De.DP
   }
 
-
   #----------------------------------------------------------------------------------------------------------------
-  #Plot results
+  #Generate Results
   #----------------------------------------------------------------------------------------------------------------
 
-  no.plot <- plotting.parameters$no.plot
-
-  # ------------------------------------------------------------------------------
-  #Check values
-  if(is.null(no.plot) || is.na(no.plot) || !is.logical(no.plot)){
-    no.plot <- FALSE
-  }
-  # ------------------------------------------------------------------------------
-
-  if(!no.plot){
-    # plot_TL.MAAD(sample.name=sample.name,
-    #              fitting.parameters=fitting.parameters,
-    #              temperatures=temperatures,
-    #              eval.Tmin=eval.Tmin,
-    #              eval.Tmax=eval.Tmax,
-    #              aNames=aNames.a,
-    #              aDoses=aDoses.a,
-    #              aLx=aLx.a,
-    #              aTx=aTx.a,
-    #              aLxTx=aLxTx.a,
-    #              aLx.plateau=aLx.a.plateau,
-    #              aTx.plateau=aTx.a.plateau,
-    #              aLxTx.plateau=aLxTx.a.plateau,
-    #              rNames=rNames.a,
-    #              rDoses=rDoses.a,
-    #              rLx=rLx.a,
-    #              rTx=rTx.a,
-    #              rLxTx=rLxTx.a,
-    #              rLx.plateau=rLx.a.plateau,
-    #              rTx.plateau=rTx.a.plateau,
-    #              rLxTx.plateau=rLxTx.a.plateau,
-    #              DP.Q.line=Q.DP,
-    #              DP.Q.line.error=Q.DP.error,
-    #              GC.Q.slope=Q.GC.slope,
-    #              GC.Q.line=GC.Q,
-    #              GC.Q.LxTx=GC.aLxTx,
-    #              GC.Q.LxTx.error=GC.aLxTx.error,
-    #              DP.I.line=I.DP,
-    #              DP.I.line.error=I.DP.error,
-    #              GC.I.slope=I.GC.slope,
-    #              GC.I.line=GC.I,
-    #              GC.I.LxTx=GC.rLxTx,
-    #              GC.I.LxTx.error=GC.rLxTx.error,
-    #              Q.DP=Q.DP.a,
-    #              Q.DP.error=Q.DP.a.error,
-    #              Q.GC=Q.GC,
-    #              Q.GC.error=Q.GC.error,
-    #              I.DP=I.DP.a,
-    #              I.DP.error=I.DP.a.error,
-    #              I.GC=I.GC,
-    #              I.GC.error=I.GC.error,
-    #              De.GC=De.GC,
-    #              De.GC.error=De.GC.error,
-    #              De.DP=De.DP,
-    #              De.DP.error=De.DP.error,
-    #              rejection.values=rejection.values,
-    #              plotting.parameters=plotting.parameters
-    # )
-    plot_TL.MAAD(sample.name=sample.name,
-                 fitting.parameters=fitting.parameters,
-                 temperatures=temperatures,
-                 eval.Tmin=eval.Tmin,
-                 eval.Tmax=eval.Tmax,
-                 aNames=aNames.a,
-                 aDoses=aDoses.a,
-                 aLx=aLx.a,
-                 aTx=aTx.a,
-                 aLxTx=aLxTx.a,
-                 aLx.plateau=aLx.a.plateau,
-                 aTx.plateau=aTx.a.plateau,
-                 aLxTx.plateau=aLxTx.a.plateau,
-                 rNames=rNames.a,
-                 rDoses=rDoses.a,
-                 rLx=rLx.a,
-                 rTx=rTx.a,
-                 rLxTx=rLxTx.a,
-                 rLx.plateau=rLx.a.plateau,
-                 rTx.plateau=rTx.a.plateau,
-                 rLxTx.plateau=rLxTx.a.plateau,
-                 DP.Q.line=Q.DP,
-                 DP.Q.line.error=Q.DP.error,
-                 GC.Q.slope=Q.GC.slope,
-                 GC.Q.line=GC.Q,
-                 GC.Q.LxTx=GC.aLxTx,
-                 GC.Q.LxTx.error=GC.aLxTx.error,
-                 GC.Q.doses = GC.aDoses,
-                 GC.Q.names = GC.aNames,
-                 DP.I.line=I.DP,
-                 DP.I.line.error=I.DP.error,
-                 GC.I.slope=I.GC.slope,
-                 GC.I.line=GC.I,
-                 GC.I.LxTx=GC.rLxTx,
-                 GC.I.LxTx.error=GC.rLxTx.error,
-                 GC.I.doses=GC.rDoses,
-                 GC.I.names=GC.rNames,
-                 Q.DP=Q.DP.a,
-                 Q.DP.error=Q.DP.a.error,
-                 Q.GC=Q.GC,
-                 Q.GC.error=Q.GC.error,
-                 I.DP=I.DP.a,
-                 I.DP.error=I.DP.a.error,
-                 I.GC=I.GC,
-                 I.GC.error=I.GC.error,
-                 De.GC=De.GC,
-                 De.GC.error=De.GC.error,
-                 De.DP=De.DP,
-                 De.DP.error=De.DP.error,
-                 rejection.values=rejection.values,
-                 plotting.parameters=plotting.parameters
-    )
-  }
-
-
-  #----------------------------------------------------------------------------------------------------------------
-  #Export Results
-  #----------------------------------------------------------------------------------------------------------------
+  new.originator <- as.character(match.call()[[1]])
 
   new.De.DP <- list(De = De.DP,
                     De.error=De.DP.error,
@@ -1077,12 +961,90 @@ analyse_TL.MAAD <- function(
                     I = I.GC,
                     I.error = I.GC.error)
 
+  new.data <- list(DP = new.De.DP,
+                   GC = new.De.GC,
+                   LnLxTnTx.table = LxTx,
+                   RC.Status = acceptance.result)
 
-  new.TLum.Results.analyse_TL.MAAD <- set_TLum.Results(data = list(DP = new.De.DP,
-                                                                   GC = new.De.GC,
-                                                                   LnLxTnTx.table = LxTx,
-                                                                   RC.Status = acceptance.result)
-                                                       )
+  new.plotData <- list(sample.name=sample.name,
+                       fitting.parameters=fitting.parameters,
+                       temperatures=temperatures,
+                       eval.Tmin=eval.Tmin,
+                       eval.Tmax=eval.Tmax,
+                       aNames=aNames.a,
+                       aDoses=aDoses.a,
+                       aLx=aLx.a,
+                       aTx=aTx.a,
+                       aLxTx=aLxTx.a,
+                       aLx.plateau=aLx.a.plateau,
+                       aTx.plateau=aTx.a.plateau,
+                       aLxTx.plateau=aLxTx.a.plateau,
+                       rNames=rNames.a,
+                       rDoses=rDoses.a,
+                       rLx=rLx.a,
+                       rTx=rTx.a,
+                       rLxTx=rLxTx.a,
+                       rLx.plateau=rLx.a.plateau,
+                       rTx.plateau=rTx.a.plateau,
+                       rLxTx.plateau=rLxTx.a.plateau,
+                       DP.Q.line=Q.DP,
+                       DP.Q.line.error=Q.DP.error,
+                       GC.Q.slope=Q.GC.slope,
+                       GC.Q.line=GC.Q,
+                       GC.Q.LxTx=GC.aLxTx,
+                       GC.Q.LxTx.error=GC.aLxTx.error,
+                       GC.Q.doses = GC.aDoses,
+                       GC.Q.names = GC.aNames,
+                       DP.I.line=I.DP,
+                       DP.I.line.error=I.DP.error,
+                       GC.I.slope=I.GC.slope,
+                       GC.I.line=GC.I,
+                       GC.I.LxTx=GC.rLxTx,
+                       GC.I.LxTx.error=GC.rLxTx.error,
+                       GC.I.doses=GC.rDoses,
+                       GC.I.names=GC.rNames,
+                       Q.DP=Q.DP.a,
+                       Q.DP.error=Q.DP.a.error,
+                       Q.GC=Q.GC,
+                       Q.GC.error=Q.GC.error,
+                       I.DP=I.DP.a,
+                       I.DP.error=I.DP.a.error,
+                       I.GC=I.GC,
+                       I.GC.error=I.GC.error,
+                       De.GC=De.GC,
+                       De.GC.error=De.GC.error,
+                       De.DP=De.DP,
+                       De.DP.error=De.DP.error,
+                       rejection.values=rejection.values,
+                       plotting.parameters=plotting.parameters
+  )
+
+  new.TLum.Results.analyse_TL.MAAD <- set_TLum.Results(originator = new.originator,
+                                                       data = new.data,
+                                                       plotData =new.plotData)
+
+
+  #----------------------------------------------------------------------------------------------------------------
+  #Plot results
+  #----------------------------------------------------------------------------------------------------------------
+
+  no.plot <- plotting.parameters$no.plot
+
+  # ------------------------------------------------------------------------------
+  #Check values
+  if(is.null(no.plot) || is.na(no.plot) || !is.logical(no.plot)){
+    no.plot <- FALSE
+  }
+  # ------------------------------------------------------------------------------
+
+  if(!no.plot){
+    do.call(what = plot_TL.MAAD,
+            args = new.plotData)
+  }
+
+  #----------------------------------------------------------------------------------------------------------------
+  #Export Results
+  #----------------------------------------------------------------------------------------------------------------
 
   return(new.TLum.Results.analyse_TL.MAAD)
 }

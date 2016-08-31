@@ -13,7 +13,7 @@
 #'
 #' @author David Strebler
 #'
-## @export plot_extract.TL
+#' @export plot_extract.TL
 
 plot_extract.TL <- function(
 

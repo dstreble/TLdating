@@ -149,7 +149,7 @@
 #'
 #' @author David Strebler
 #'
-## @export plot_TL.MAAD
+#' @export plot_TL.MAAD
 
 plot_TL.MAAD <- function(
 

@@ -104,15 +104,12 @@ mod_update.dType <- function(
 
   # ------------------------------------------------------------------------------
 
-  new.protocol <- object@protocol
   records <- object@records
 
   nRecords <- length(records)
 
   new.records <- list()
   comments <- vector()
-
-  new.records <- list()
 
   if(method == C_COMMENT){
 
@@ -291,9 +288,31 @@ mod_update.dType <- function(
     stop(error.message)
   }
 
-  # NEW TLUM.ANALYSIS
-  new.TLum.Analysis <- set_TLum.Analysis(records= new.records,
-                                         protocol=new.protocol)
+  #----------------------------------------------------------------------------------------------
+  # Generate TLum.Analysis
+  #----------------------------------------------------------------------------------------------
 
+  new.protocol <- object@protocol
+
+  new.history <- c(object@history,
+                   as.character(match.call()[[1]]))
+
+  new.plotData <- list()
+
+  new.plotHistory <- object@plotHistory
+  new.plotHistory[[length(new.plotHistory)+1]] <- new.plotData
+
+  new.TLum.Analysis <- set_TLum.Analysis(records= new.records,
+                                         protocol=new.protocol,
+                                         history = new.history,
+                                         plotHistory = new.plotHistory)
+
+  #----------------------------------------------------------------------------------------------
+  #Plot results
+  #----------------------------------------------------------------------------------------------
+
+  #----------------------------------------------------------------------------------------------
+  #Return results
+  #----------------------------------------------------------------------------------------------
   return(new.TLum.Analysis)
 }

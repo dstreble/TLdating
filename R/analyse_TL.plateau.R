@@ -129,6 +129,41 @@ analyse_TL.plateau <- function(
   aLxTx.plateau <- get_TLum.Results(temp.data,"LnLx")
 
   #----------------------------------------------------------------------------------------------------------------
+  # Generate results
+  #----------------------------------------------------------------------------------------------------------------
+
+  new.originator <- as.character(match.call()[[1]])
+
+  new.data <- list(names = uNames,
+                   doses = uDoses,
+                   Lx = aLx.a,
+                   Lx.error = aLx.a.error,
+                   Lx.plateau = aLx.plateau,
+                   LxTx=aLxTx,
+                   LxTx.a=aLxTx.a,
+                   LxTx.plateau=aLxTx.plateau)
+
+  new.plotData <- list(sample.name=sample.name,
+                       temperatures=temperatures,
+                       names=aNames,
+                       doses=aDoses,
+                       Lx=aLx,
+                       Lx.a=aLx.a,
+                       Lx.plateau=aLx.plateau,
+                       LxTx=aLxTx,
+                       LxTx.a=aLxTx.a,
+                       LxTx.plateau=aLxTx.plateau,
+                       plotting.parameters=plotting.parameters
+
+  )
+
+  new.TLum.Results.analyse_TL.plateau <- set_TLum.Results(originator = new.originator,
+                                                          data = new.data,
+                                                          plotData = new.plotData
+                                                          )
+
+
+  #----------------------------------------------------------------------------------------------------------------
   #Plot results
   #----------------------------------------------------------------------------------------------------------------
 
@@ -142,31 +177,14 @@ analyse_TL.plateau <- function(
   # ------------------------------------------------------------------------------
 
   if(!no.plot){
-    plot_TL.plateau(sample.name=sample.name,
-                    temperatures=temperatures,
-                    names=aNames,
-                    doses=aDoses,
-                    Lx=aLx,
-                    Lx.a=aLx.a,
-                    Lx.plateau=aLx.plateau,
-                    LxTx=aLxTx,
-                    LxTx.a=aLxTx.a,
-                    LxTx.plateau=aLxTx.plateau,
-                    plotting.parameters=plotting.parameters
-    )
+    do.call(plot_TL.plateau,
+            new.plotData
+            )
   }
 
-  # ------------------------------------------------------------------------------
-
-  new.TLum.Results.analyse_TL.plateau <- set_TLum.Results(data = list(names = uNames,
-                                                                      doses = uDoses,
-                                                                      Lx = aLx.a,
-                                                                      Lx.error = aLx.a.error,
-                                                                      Lx.plateau = aLx.plateau,
-                                                                      LxTx=aLxTx,
-                                                                      LxTx.a=aLxTx.a,
-                                                                      LxTx.plateau=aLxTx.plateau)
-  )
+  #----------------------------------------------------------------------------------------------------------------
+  # Export results
+  #----------------------------------------------------------------------------------------------------------------
 
   return(new.TLum.Results.analyse_TL.plateau)
 }

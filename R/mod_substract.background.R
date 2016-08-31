@@ -55,18 +55,7 @@ mod_substract.background <- function(
   }
   # ------------------------------------------------------------------------------
 
-  protocol <- object@protocol
-
   nRecords <- length(object@records)
-
-  no.plot <- plotting.parameters$no.plot
-
-  # ------------------------------------------------------------------------------
-  # Value check
-  if(is.null(no.plot) || is.na(no.plot) || !is.logical(no.plot)){
-    no.plot <- FALSE
-  }
-  # ------------------------------------------------------------------------------
 
   #Extract BG & TL
   test.background <- logical()
@@ -125,20 +114,10 @@ mod_substract.background <- function(
       stop("[mod_substract.background] Error: All TL do not have the same temperature vector.")
     }
   }
-  #----------------------------------------------------------------------------------------------
-  #Plot results
-  #----------------------------------------------------------------------------------------------
-
-  if(no.plot == FALSE){
-    plot_substract.background(old.TL=TL,
-                              BG=BG,
-                              new.TL=new.TL,
-                              temperatures=temperatures)
-  }
 
 
   #----------------------------------------------------------------------------------------------
-  # New BinFileData
+  # Generate TLum.Analysis
   #----------------------------------------------------------------------------------------------
 
 
@@ -179,9 +158,45 @@ mod_substract.background <- function(
     }
   }
 
+  new.protocol <- object@protocol
+
+  new.history <- c(object@history,
+                   as.character(match.call()[[1]]))
+
+  new.plotData <- list(old.TL=TL,
+                       BG=BG,
+                       new.TL=new.TL,
+                       temperatures=temperatures)
+
+  new.plotHistory <- object@plotHistory
+  new.plotHistory[[length(new.plotHistory)+1]] <- new.plotData
+
   # new Analysis
   new.TLum.Analysis <- set_TLum.Analysis(records= new.records,
-                                         protocol=protocol)
+                                         protocol=new.protocol,
+                                         history = new.history,
+                                         plotHistory = new.plotHistory)
+
+  #----------------------------------------------------------------------------------------------
+  #Plot results
+  #----------------------------------------------------------------------------------------------
+  no.plot <- plotting.parameters$no.plot
+
+  # ------------------------------------------------------------------------------
+  # Value check
+  if(is.null(no.plot) || is.na(no.plot) || !is.logical(no.plot)){
+    no.plot <- FALSE
+  }
+  # ------------------------------------------------------------------------------
+
+  if(no.plot == FALSE){
+    do.call(plot_substract.background,
+            new.plotData)
+  }
+
+  #----------------------------------------------------------------------------------------------
+  #Return results
+  #----------------------------------------------------------------------------------------------
 
   return(new.TLum.Analysis)
 }

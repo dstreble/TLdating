@@ -169,7 +169,12 @@ calc_TL.MAAD.separate <- function(
                  rLx=rLx,
                  rLx.error=rLx.error)
 
-  new.TLum.Results.calc_TL.MAAD.separate <- set_TLum.Results(data = result)
+  new.originator <- as.character(match.call()[[1]])
+  new.plotData <- list()
+
+  new.TLum.Results.calc_TL.MAAD.separate <- set_TLum.Results(originator= new.originator,
+                                                             data = result,
+                                                             plotData = new.plotData)
 
   return(new.TLum.Results.calc_TL.MAAD.separate)
 }

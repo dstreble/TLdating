@@ -7,15 +7,16 @@
 \alias{get_TLum.Analysis,TLum.Analysis-method}
 \alias{set_TLum.Analysis}
 \alias{set_TLum.Analysis,TLum.Analysis-method}
-\alias{set_TLum.Analysis,list-method}
+\alias{set_TLum.Analysis,list,ANY,character,list-method}
 \alias{show,TLum.Analysis-method}
 \title{Class \code{"TLum.Analysis"}}
 \usage{
 \S4method{show}{TLum.Analysis}(object)
 
-set_TLum.Analysis(records, protocol)
+set_TLum.Analysis(records, protocol, history, plotHistory)
 
-\S4method{set_TLum.Analysis}{list}(records, protocol)
+\S4method{set_TLum.Analysis}{list,ANY,character,list}(records, protocol,
+  history, plotHistory)
 
 get_TLum.Analysis(object, record.id, recordType, curveType, TLum.type,
   get.index, keep.object = FALSE)
@@ -29,6 +30,10 @@ get_TLum.Analysis(object, record.id, recordType, curveType, TLum.type,
 \item{records}{\link{list}: list of \linkS4class{TLum.Data.Curve} objects}
 
 \item{protocol}{\link{character}: protocol type for analysis object.}
+
+\item{history}{\link{character}: Vector containing the previous modification made on the data set.}
+
+\item{plotHistory}{\link{list}: Data for plotting the evolution of the data set.}
 
 \item{record.id}{\link{numeric}: IDs of specific records.}
 
@@ -51,6 +56,10 @@ Object class containing analysis data for protocol analysis.
 \item{\code{protocol}}{\link{character}: Protocol used for the analysis.}
 
 \item{\code{records}}{\link{list}: \linkS4class{TLum.Data.Curve} included in the analysis.}
+
+\item{\code{history}}{\link{character}: Vector containing the previous modification made on the data set.}
+
+\item{\code{plotHistory}}{\link{list}: Data for plotting the evolution of the data set.}
 }}
 \note{
 The code and the structure of this class is based on the \linkS4class{RLum.Analysis} class from the \link{Luminescence} package.

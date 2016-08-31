@@ -2,6 +2,10 @@
 This file report the main changes make to the package for each version.
 -----------------------------------------------------------------------
 
+v0.1.3 (08/2016)
+------
+* Output modification to make the package compatible with shiny.
+
 v0.1.2 (06/2016)
 ------
 * Modification of initial uncertainty

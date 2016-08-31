@@ -89,7 +89,7 @@
 #'
 #' @author David Strebler
 #'
-## @export plot_TL.SAR
+#' @export plot_TL.SAR
 
 plot_TL.SAR <- function(
 

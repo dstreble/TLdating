@@ -196,12 +196,18 @@ calc_TL.MAAD.fit.Q <- function(
     stop("[calc_TL.MAAD.fit] Error: fit.method not supported.")
   }
 
+  new.originator <- as.character(match.call()[[1]])
+
   result <- list(GC=fit,
                  Q=Q,
                  Q.error=Q.error,
                  summary=s)
 
-  new.TLum.Results.calc_TL.MAAD.fit <- set_TLum.Results(data = result)
+  new.plotData <- list()
+
+  new.TLum.Results.calc_TL.MAAD.fit <- set_TLum.Results(originator= new.originator,
+                                                        data = result,
+                                                        plotData = new.plotData)
 
   return (new.TLum.Results.calc_TL.MAAD.fit)
 }
