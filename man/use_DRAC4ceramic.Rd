@@ -7,7 +7,7 @@
 use_DRAC4ceramic(data, notification = TRUE)
 }
 \arguments{
-\item{data}{\link{list}: data object create throught the function \link{template_DRAC4flint}.}
+\item{data}{\link{list}: data object create throught the function \link{template_DRAC4ceramic}.}
 
 \item{notification}{\link{logical} (default): set to \code{FALSE} if you don't want to see the legal notification.}
 }

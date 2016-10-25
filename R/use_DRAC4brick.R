@@ -815,6 +815,11 @@ use_DRAC4brick <- function (
 
   # --------------------------------------------------------------------------------------------------------------------------
 
+  # De
+  De <- as.numeric(run1.output$DRAC$highlights$`De (Gy)`)
+  De.err <- as.numeric(run1.output$DRAC$highlights$`errDe (Gy)`)
+
+
   # Combining the 2 runs...
 
 
@@ -866,8 +871,10 @@ use_DRAC4brick <- function (
 
   # DRAC results
   # Partial dose rate
-  DRAC.int.Dr <- temp.int.alpha+temp.int.beta
-  DRAC.int.Dr.err <- sqrt(sum(temp.int.alpha.err^2, temp.int.beta^2))
+  DRAC.int.Dr <- as.numeric(run1.output$DRAC$highlights$`Internal doserate (Gy.ka-1)`[1])
+  DRAC.int.Dr.err <- as.numeric(run1.output$DRAC$highlights$`Internal errdoserate (Gy.ka-1)`[1])
+  # DRAC.int.Dr <- temp.int.alpha+temp.int.beta
+  # DRAC.int.Dr.err <- sqrt(sum(temp.int.alpha.err^2, temp.int.beta^2))
 
   DRAC.ext.Dr <- temp.ext.alpha+temp.ext.beta
   DRAC.ext.Dr.err <- sqrt(sum(temp.ext.alpha.err^2, temp.ext.beta^2))
@@ -888,15 +895,15 @@ use_DRAC4brick <- function (
   DRAC.cosmic.Dr.err <- temp.cosmic.err
 
   # Total dose rate
-  DRAC.Dr <- sum(DRAC.alpha.Dr,
-                 DRAC.beta.Dr,
-                 DRAC.gamma.Dr,
-                 DRAC.cosmic.Dr)
+  DRAC.Dr <- sum(DRAC.int.Dr,
+                 DRAC.ext.Dr,
+                 DRAC.env.Dr,
+                 na.rm = TRUE)
 
-  DRAC.Dr.err <- sqrt(sum(DRAC.alpha.Dr.err^2,
-                          DRAC.beta.Dr.err^2,
-                          DRAC.gamma.Dr.err^2,
-                          DRAC.cosmic.Dr.err^2))
+  DRAC.Dr.err <- sqrt(sum(DRAC.int.Dr.err^2,
+                          DRAC.ext.Dr.err^2,
+                          DRAC.env.Dr.err^2,
+                          na.rm = TRUE))
 
   # Age
   DRAC.age <- De/DRAC.Dr
@@ -927,23 +934,32 @@ use_DRAC4brick <- function (
 
   # Correction of the cosmic dose rate using 'calc_CosmicDoseRate'
 
-  R.cosmic <- calc_CosmicDoseRate(depth = depth,
-                                  density = ext2.density,
-                                  latitude = latitude,
-                                  longitude = longitude,
-                                  altitude = altitude,
-                                  est.age = DRAC.age,
-                                  error = DRAC.cosmic.Dr.err/DRAC.cosmic.Dr,
-                                  corr.fieldChanges = corr.fieldChanges)
+  if(is.finite(DRAC.age)){
+    R.cosmic <- calc_CosmicDoseRate(depth = depth,
+                                    density = ext1.density,
+                                    latitude = latitude,
+                                    longitude = longitude,
+                                    altitude = altitude,
+                                    est.age = DRAC.age,
+                                    error = DRAC.cosmic.Dr.err/DRAC.cosmic.Dr,
+                                    corr.fieldChanges = corr.fieldChanges)
 
-  R.cosmic.Dr <- R.cosmic$summary$dc
-  R.cosmic.Dr.err <- R.cosmic$summary$dc*R.cosmic$args$error
+    R.cosmic.Dr <- R.cosmic$summary$dc
+    R.cosmic.Dr.err <- R.cosmic$summary$dc*R.cosmic$args$error
+
+  }else{
+    R.cosmic.Dr <- DRAC.cosmic.Dr
+    R.cosmic.Dr.err <- DRAC.cosmic.Dr.err
+  }
+
 
   # R results
 
   # Partial dose rate
-  R.int.Dr <- temp.int.alpha+temp.int.beta
-  R.int.Dr.err <- sqrt(sum(temp.int.alpha.err^2, temp.int.beta^2))
+  # R.int.Dr <- temp.int.alpha+temp.int.beta
+  # R.int.Dr.err <- sqrt(sum(temp.int.alpha.err^2, temp.int.beta^2))
+  R.int.Dr <- as.numeric(run1.output$DRAC$highlights$`Internal doserate (Gy.ka-1)`[1])
+  R.int.Dr.err <- as.numeric(run1.output$DRAC$highlights$`Internal errdoserate (Gy.ka-1)`[1])
 
   R.ext.Dr <- temp.ext.alpha+temp.ext.beta
   R.ext.Dr.err <- sqrt(sum(temp.ext.alpha.err^2, temp.ext.beta^2))
@@ -961,15 +977,15 @@ use_DRAC4brick <- function (
   R.gamma.Dr.err <- temp.env.gamma.err
 
   # Total dose rate
-  R.Dr <- sum(R.alpha.Dr,
-              R.beta.Dr,
-              R.gamma.Dr,
-              R.cosmic.Dr)
+  R.Dr <- sum(R.int.Dr,
+              R.ext.Dr,
+              R.env.Dr,
+              na.rm = TRUE)
 
-  R.Dr.err <- sqrt(sum(R.alpha.Dr.err^2,
-                       R.beta.Dr.err^2,
-                       R.gamma.Dr.err^2,
-                       R.cosmic.Dr.err^2))
+  R.Dr.err <- sqrt(sum(R.int.Dr.err^2,
+                       R.ext.Dr.err^2,
+                       R.env.Dr.err^2,
+                       na.rm = TRUE))
 
   # Age
   R.age <- De/R.Dr
@@ -1008,7 +1024,9 @@ use_DRAC4brick <- function (
   message.Dr <- paste("The dose rate is:", round(R.Dr,3), "\u00b1", round(R.Dr.err,3), "Gy/ka.")
   message.Age <- paste("The age is estimated as:", round(R.age,3), "\u00b1", round(R.age.err,3), "ka.")
 
-  if(age.CE > 0){
+  if(!is.finite(age.CE)){
+    message.CE <- "The age of the brick is unknown."
+  }else if(age.CE > 0){
     message.CE <- paste("The heating of the brick occured around", round(age.CE), "\u00b1", round(age.CE.err), "CE.")
   }else if(abs(age.CE)<100){
     message.CE <- paste("The heating of the brick occured around", round(abs(age.CE),-1), "\u00b1", round(age.CE.err,-1), " BCE.")
@@ -1039,5 +1057,8 @@ use_DRAC4brick <- function (
                  R = R.result,
                  comment=comment)
 
-  return(result)
+  new.TLum.Results.use_DRAC4brick <- set_TLum.Results(data = result,
+                                                      originator = "use_DRAC4brick")
+
+  return (new.TLum.Results.use_DRAC4brick)
 }
