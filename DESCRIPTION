@@ -18,8 +18,13 @@ Depends:
 Imports:
     methods,
     Luminescence (>= 0.5.0),
-    gplots
+    gplots,
+    shiny,
+    shinyjs,
+    DT,
+    xtable
 Collate:
+    'call_shinyTLdating.R'
     'analyse_TL.MAAD.R'
     'analyse_TL.SAR.R'
     'analyse_TL.plateau.R'
