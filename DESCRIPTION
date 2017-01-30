@@ -2,7 +2,7 @@ Package: TLdating
 Type: Package
 Title: Tools for Thermoluminescence Dating
 Version: 0.1.4
-Date: 2016-09-01
+Date: 2017-01-30
 Authors@R: c(
   person("David", "Strebler", role= c("aut","cre"), email= "david.strebler@uni-koeln.de"),
   person("Dominik", "Brill", role = c("ths")),
@@ -24,7 +24,6 @@ Imports:
     DT,
     xtable
 Collate:
-    'call_shinyTLdating.R'
     'analyse_TL.MAAD.R'
     'analyse_TL.SAR.R'
     'analyse_TL.plateau.R'
@@ -79,5 +78,7 @@ Collate:
     'use_DRAC4cave.R'
     'template_DRAC4brick.R'
     'use_DRAC4brick.R'
+    'call_shinyTLdating.R'
+    'call_shinyDRAC.R'
     'TLdating-package.R'
 RoxygenNote: 5.0.1

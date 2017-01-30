@@ -13,7 +13,7 @@ SAR protocol. This package adds to the R package \link{Luminescence}.
 \tabular{ll}{  Package: \tab TLdating \cr
                Type: \tab Package\cr
                Version: \tab 0.1.2 \cr
-               Date: \tab 2016-03-01 \cr
+               Date: \tab 2017-01-30 \cr
                License: \tab GPL-3
             }
 }
@@ -39,7 +39,7 @@ SAR protocol. This package adds to the R package \link{Luminescence}.
 
  \bold{Related package projects}\cr
    \url{http://www.r-luminescence.de} \cr
-   \url{http://cran.r-project.org/package=Luminescence}\cr
+   \url{https://cran.r-project.org/package=Luminescence}\cr
 
  \bold{Package maintainer} \cr
  David Strebler, Geographisches Institut, Universitat zu Koeln, Cologne, Germany. \cr
