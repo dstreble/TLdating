@@ -20,10 +20,9 @@ This function use the data from the Risoe.BINFileData and the k specified to cre
 Then it create a new TLum.BIN.File including all the information from the Risoe.BINFileData and the new absolute error matrix.
 For practical reason, the TLdating package considers the error as random. It means that the systematic component of the error will be ignored.
 }
-\author{
-David Strebler, University of Cologne (Germany), \cr David Strebler
-}
 \seealso{
 \link{TLum.BIN.File2Risoe.BINfileData}, \link{TLum.BIN.File2TLum.Analysis} and \link{TLum.BIN.File2TLum.Data.Curve}.
 }
-
+\author{
+David Strebler, University of Cologne (Germany), \cr David Strebler
+}

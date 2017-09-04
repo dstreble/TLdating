@@ -35,4 +35,3 @@ This function calculates the temperature vector.
 \author{
 David Strebler, University of Cologne (Germany).
 }
-

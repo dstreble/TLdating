@@ -31,12 +31,11 @@ This function returns a \code{\linkS4class{TLum.Analysis}} object.
 This script creates a .binx file from a \linkS4class{TLum.Analysis} object.
 It just requires the name of the file and the \linkS4class{TLum.Analysis} object.
 }
-\author{
-David Strebler, University of Cologne (Germany).
-}
 \seealso{
 \link{write_R2BIN},
  \link{TLum.BIN.File2Risoe.BINfileData},
  \link{TLum.Analysis2TLum.BIN.File}.
 }
-
+\author{
+David Strebler, University of Cologne (Germany).
+}

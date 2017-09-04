@@ -29,4 +29,3 @@ Other datatypes are not supported.
 \author{
 David Strebler, University of Cologne (Germany).
 }
-

@@ -19,10 +19,9 @@ plot_substract.background(old.TL, BG, new.TL, temperatures)
 This function plots the results of the \link{mod_substract.background} function.
 It plots the TL curves, the background (BG) curves and the background substracted curves.
 }
-\author{
-David Strebler
-}
 \seealso{
 \link{mod_substract.background}
 }
-
+\author{
+David Strebler
+}

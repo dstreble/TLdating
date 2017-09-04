@@ -21,4 +21,3 @@ The original data-type of each luminescence curve is also restored.
 \author{
 David Strebler, University of Cologne (Germany), \cr David Strebler
 }
-

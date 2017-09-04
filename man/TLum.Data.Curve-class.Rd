@@ -3,13 +3,15 @@
 \docType{class}
 \name{TLum.Data.Curve-class}
 \alias{TLum.Data.Curve-class}
-\alias{get_TLum.Data.Curve}
-\alias{get_TLum.Data.Curve,ANY-method}
-\alias{get_TLum.Data.Curve,TLum.Data.Curve-method}
-\alias{set_TLum.Data.Curve}
-\alias{set_TLum.Data.Curve,ANY-method}
-\alias{set_TLum.Data.Curve,TLum.Data.Curve-method}
 \alias{show,TLum.Data.Curve-method}
+\alias{TLum.Data.Curve-class}
+\alias{set_TLum.Data.Curve,ANY-method}
+\alias{set_TLum.Data.Curve}
+\alias{set_TLum.Data.Curve,TLum.Data.Curve-method}
+\alias{TLum.Data.Curve-class}
+\alias{get_TLum.Data.Curve,ANY-method}
+\alias{get_TLum.Data.Curve}
+\alias{get_TLum.Data.Curve,TLum.Data.Curve-method}
 \title{Class \code{"TLum.Data.Curve"}}
 \usage{
 \S4method{show}{TLum.Data.Curve}(object)
@@ -67,6 +69,7 @@ Class for luminescence curve data.
 
 \item{\code{.RESERVED}}{\link{list}: Object containing list of undocumented raw values for internal use only.}
 }}
+
 \note{
 The code and the structure of this class is based on the \linkS4class{RLum.Data.Curve} class from the \link{Luminescence} package.
 }
@@ -74,4 +77,3 @@ The code and the structure of this class is based on the \linkS4class{RLum.Data.
 David Strebler
 }
 \keyword{classes}
-

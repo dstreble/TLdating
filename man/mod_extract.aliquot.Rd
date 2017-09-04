@@ -20,4 +20,3 @@ This function extracts a list of aliquots from a \code{\linkS4class{TLum.Analysi
 \author{
 David Strebler, University of Cologne (Germany).
 }
-

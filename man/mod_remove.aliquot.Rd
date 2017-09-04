@@ -20,4 +20,3 @@ This function removes a list of aliquots from a \code{\linkS4class{TLum.Analysis
 \author{
 David Strebler, University of Cologne (Germany).
 }
-

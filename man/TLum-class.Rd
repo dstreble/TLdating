@@ -14,4 +14,3 @@ Abstract class for data in the package Luminescence
 David Strebler
 }
 \keyword{classes}
-

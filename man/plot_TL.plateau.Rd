@@ -47,12 +47,11 @@ The plotting parameters are:  \cr
 }
 See also \link{analyse_TL.MAAD}. \cr
 }
-\author{
-David Strebler
-}
 \seealso{
 \link{analyse_TL.plateau},
  \link{calc_TL.MAAD.fit.Q},
  \link{calc_TL.MAAD.fit.I}.
 }
-
+\author{
+David Strebler
+}

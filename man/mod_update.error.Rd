@@ -27,4 +27,3 @@ This function update the error vector of each curve from a \code{\linkS4class{TL
 \author{
 David Strebler, University of Cologne (Germany).
 }
-

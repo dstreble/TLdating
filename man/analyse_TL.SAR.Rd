@@ -93,9 +93,6 @@ The plotting parameters are:  \cr
 }
 See also \link{plot_TL.SAR}. \cr
 }
-\author{
-David Strebler, University of Cologne (Germany), \cr David Strebler
-}
 \references{
 Aitken, M.J. (1985) Thermoluminescence Dating, Academic Press, London \cr
 
@@ -107,4 +104,6 @@ Aitken, M.J. (1985) Thermoluminescence Dating, Academic Press, London \cr
  \link{calc_TL.SAR.fit},
  \link{analyse_TL.MAAD}.
 }
-
+\author{
+David Strebler, University of Cologne (Germany), \cr David Strebler
+}

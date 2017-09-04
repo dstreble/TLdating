@@ -943,7 +943,7 @@ use_DRAC4ceramic <- function (
   ######
 
 
-  int.input$`ExternalU (ppm)` <-  ext.U
+  int.input$`External U (ppm)` <-  ext.U
   int.input$`errExternal U (ppm)` <- ext.U.err
   int.input$`External Th (ppm)` <- ext.Th
   int.input$`errExternal Th (ppm)` <- ext.Th.err
@@ -1010,7 +1010,7 @@ use_DRAC4ceramic <- function (
   env.input$Mineral <- mineral
   env.input$`Conversion factors` <- conversion.factors
 
-  env.input$`ExternalU (ppm)` <-  env.U
+  env.input$`External U (ppm)` <-  env.U
   env.input$`errExternal U (ppm)` <- env.U.err
   env.input$`External Th (ppm)` <- env.Th
   env.input$`errExternal Th (ppm)` <- env.Th.err

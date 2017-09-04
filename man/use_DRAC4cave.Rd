@@ -23,4 +23,3 @@ The function 'use_DRAC' is only compatible wth DRAC version 1.1.
 \author{
 David Strebler
 }
-

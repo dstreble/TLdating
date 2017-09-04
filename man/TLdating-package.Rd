@@ -2,8 +2,8 @@
 % Please edit documentation in R/TLdating-package.R
 \docType{package}
 \name{TLdating-package}
-\alias{TLdating}
 \alias{TLdating-package}
+\alias{TLdating}
 \title{Tools for Thermoluminescences Dating}
 \description{
 A series of functions for thermoluminescence dating using the MAAD or the
@@ -53,4 +53,3 @@ SAR protocol. This package adds to the R package \link{Luminescence}.
  and R.K. Smedley. \cr
 }
 \keyword{package}
-

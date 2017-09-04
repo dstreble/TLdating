@@ -39,4 +39,3 @@ This function estimates the average curves for each additive dose.
 \author{
 David Strebler, University of Cologne (Germany).
 }
-

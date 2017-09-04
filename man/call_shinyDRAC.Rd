@@ -17,4 +17,3 @@ call_ShinyDRAC()
 \author{
 David Strebler, University of Cologne (Germany).
 }
-

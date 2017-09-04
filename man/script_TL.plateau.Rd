@@ -71,9 +71,6 @@ The plotting parameters are:  \cr
 }
 See also \link{plot_TL.MAAD}. \cr
 }
-\author{
-David Strebler, University of Cologne (Germany).
-}
 \seealso{
 \link{read_BIN2R},
  \link{Risoe.BINfileData2TLum.BIN.File},
@@ -87,4 +84,6 @@ David Strebler, University of Cologne (Germany).
  \link{TLum.BIN.File2TLum.Analysis} and
  \link{analyse_TL.plateau}.
 }
-
+\author{
+David Strebler, University of Cologne (Germany).
+}

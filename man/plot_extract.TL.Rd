@@ -14,10 +14,9 @@ plot_extract.TL(temperatures, TL)
 \description{
 This function plots the results obtained by mod_extract.TL.
 }
-\author{
-David Strebler
-}
 \seealso{
 \link{mod_extract.TL}
 }
-
+\author{
+David Strebler
+}

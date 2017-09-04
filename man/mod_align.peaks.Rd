@@ -42,10 +42,9 @@ It uses the average of the testdose maximum positions as reference for the new p
    \link{logical}: If \code{TRUE}, the results will not be plotted.}
 }
 }
-\author{
-David Strebler, University of Cologne (Germany).
-}
 \seealso{
 \link{plot_align.peaks}.
 }
-
+\author{
+David Strebler, University of Cologne (Germany).
+}

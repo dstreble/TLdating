@@ -25,4 +25,3 @@ It also add the new data type "testdose" and "preheat" based on the \code{commen
 \author{
 David Strebler, University of Cologne (Germany).
 }
-

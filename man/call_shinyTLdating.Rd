@@ -17,4 +17,3 @@ call_shinyTLdating()
 \author{
 David Strebler, University of Cologne (Germany).
 }
-

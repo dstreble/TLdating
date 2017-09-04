@@ -3,12 +3,14 @@
 \docType{class}
 \name{TLum.Analysis-class}
 \alias{TLum.Analysis-class}
-\alias{get_TLum.Analysis}
-\alias{get_TLum.Analysis,TLum.Analysis-method}
+\alias{show,TLum.Analysis-method}
+\alias{TLum.Analysis-class}
+\alias{set_TLum.Analysis,list,ANY,character,list-method}
 \alias{set_TLum.Analysis}
 \alias{set_TLum.Analysis,TLum.Analysis-method}
-\alias{set_TLum.Analysis,list,ANY,character,list-method}
-\alias{show,TLum.Analysis-method}
+\alias{TLum.Analysis-class}
+\alias{get_TLum.Analysis,TLum.Analysis-method}
+\alias{get_TLum.Analysis}
 \title{Class \code{"TLum.Analysis"}}
 \usage{
 \S4method{show}{TLum.Analysis}(object)
@@ -61,6 +63,7 @@ Object class containing analysis data for protocol analysis.
 
 \item{\code{plotHistory}}{\link{list}: Data for plotting the evolution of the data set.}
 }}
+
 \note{
 The code and the structure of this class is based on the \linkS4class{RLum.Analysis} class from the \link{Luminescence} package.
 }
@@ -68,4 +71,3 @@ The code and the structure of this class is based on the \linkS4class{RLum.Analy
 David Strebler
 }
 \keyword{classes}
-

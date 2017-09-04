@@ -12,4 +12,3 @@ This function generates a template that can be fill in and use with \link{use_DR
 \author{
 David Strebler
 }
-

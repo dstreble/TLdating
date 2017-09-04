@@ -104,9 +104,6 @@ See also \link{plot_TL.MAAD}. \cr
 ##perform analysis
 
 }
-\author{
-David Strebler, University of Cologne (Germany)
-}
 \references{
 Aitken, M.J. (1985) Thermoluminescence Dating, Academic Press, London \cr
 }
@@ -119,4 +116,6 @@ Aitken, M.J. (1985) Thermoluminescence Dating, Academic Press, London \cr
  \link{calc_TL.MAAD.fit.Q},
  \link{analyse_TL.SAR}.
 }
-
+\author{
+David Strebler, University of Cologne (Germany)
+}

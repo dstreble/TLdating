@@ -23,4 +23,3 @@ For practical reason, the TLdating package considers the error as random. It mea
 \author{
 David Strebler, University of Cologne (Germany), \cr David Strebler
 }
-

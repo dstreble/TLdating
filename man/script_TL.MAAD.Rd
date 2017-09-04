@@ -123,9 +123,6 @@ The rejection criteria are: \cr
    \link{numeric}: Maximum error accepted on the palaeodose signal within the selected temperature interval.}
 }
 }
-\author{
-David Strebler, University of Cologne (Germany), \cr David Strebler
-}
 \seealso{
 \link{read_BIN2R},
  \link{Risoe.BINfileData2TLum.BIN.File},
@@ -139,4 +136,6 @@ David Strebler, University of Cologne (Germany), \cr David Strebler
  \link{TLum.BIN.File2TLum.Analysis} and
  \link{analyse_TL.MAAD}.
 }
-
+\author{
+David Strebler, University of Cologne (Germany), \cr David Strebler
+}

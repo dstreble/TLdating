@@ -706,7 +706,7 @@ use_DRAC4brick <- function (
   run1.input$`errRb (ppm)` <- int.Rb.err
   run1.input$`Calculate internal Rb from K conc?`<- int.K2Rb
 
-  run1.input$`ExternalU (ppm)` <-  ext1.U
+  run1.input$`External U (ppm)` <-  ext1.U
   run1.input$`errExternal U (ppm)` <- ext1.U.err
   run1.input$`External Th (ppm)` <- ext1.Th
   run1.input$`errExternal Th (ppm)` <- ext1.Th.err
@@ -770,7 +770,7 @@ use_DRAC4brick <- function (
   run2.input$`errRb (ppm)` <- int.Rb.err
   run2.input$`Calculate internal Rb from K conc?`<- int.K2Rb
 
-  run2.input$`ExternalU (ppm)` <-  ext2.U
+  run2.input$`External U (ppm)` <-  ext2.U
   run2.input$`errExternal U (ppm)` <- ext2.U.err
   run2.input$`External Th (ppm)` <- ext2.Th
   run2.input$`errExternal Th (ppm)` <- ext2.Th.err

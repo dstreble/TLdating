@@ -72,9 +72,6 @@ The plotting parameters are:  \cr
 }
 see also \link{mod_update.dType}.
 }
-\author{
-David Strebler, University of Cologne (Germany), \cr David Strebler
-}
 \seealso{
 \link{read_BIN2R},
  \link{Risoe.BINfileData2TLum.BIN.File},
@@ -86,4 +83,6 @@ David Strebler, University of Cologne (Germany), \cr David Strebler
  \link{mod_align.peaks},
  \link{write_R2BIN}.
 }
-
+\author{
+David Strebler, University of Cologne (Germany), \cr David Strebler
+}

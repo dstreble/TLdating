@@ -26,10 +26,9 @@ This function provides a new \code{\linkS4class{TLum.Analysis}} object containin
    \link{logical}: If \code{TRUE}, the results will not be plotted.}
 }
 }
-\author{
-David Strebler, University of Cologne (Germany).
-}
 \seealso{
 \link{plot_remove.preheat}
 }
-
+\author{
+David Strebler, University of Cologne (Germany).
+}

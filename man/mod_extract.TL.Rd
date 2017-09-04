@@ -41,10 +41,9 @@ This function provides a new \code{\linkS4class{TLum.Analysis}} object containin
      \link{logical}: Only used when \code{includePreheat} is \code{TRUE}. If \code{TRUE}, the signal was recorded during the preheat plateau.}
  }
 }
-\author{
-David Strebler, University of Cologne (Germany).
-}
 \seealso{
 \link{plot_extract.TL}
 }
-
+\author{
+David Strebler, University of Cologne (Germany).
+}

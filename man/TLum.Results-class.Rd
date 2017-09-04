@@ -3,12 +3,14 @@
 \docType{class}
 \name{TLum.Results-class}
 \alias{TLum.Results-class}
-\alias{get_TLum.Results}
-\alias{get_TLum.Results,TLum.Results-method}
-\alias{set_TLum.Results}
-\alias{set_TLum.Results,ANY,list-method}
-\alias{set_TLum.Results,TLum.Results-method}
 \alias{show,TLum.Results-method}
+\alias{TLum.Results-class}
+\alias{set_TLum.Results,ANY,list-method}
+\alias{set_TLum.Results}
+\alias{set_TLum.Results,TLum.Results-method}
+\alias{TLum.Results-class}
+\alias{get_TLum.Results,TLum.Results-method}
+\alias{get_TLum.Results}
 \title{Class \code{"TLum.Results"}}
 \usage{
 \S4method{show}{TLum.Results}(object)
@@ -44,6 +46,7 @@ Object class contains results data from functions.
 
 \item{\code{plotData}}{\link{list}: a list containing the data required for plotting.}
 }}
+
 \note{
 The code and the structure of this class is based on the \linkS4class{RLum.Results} class from the \link{Luminescence} package.
 }
@@ -51,4 +54,3 @@ The code and the structure of this class is based on the \linkS4class{RLum.Resul
 David Strebler
 }
 \keyword{classes}
-

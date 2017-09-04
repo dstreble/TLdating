@@ -799,7 +799,7 @@ use_DRAC4flint <- function (
   }
   ######
 
-  int.input$`ExternalU (ppm)` <-  ext.U
+  int.input$`External U (ppm)` <-  ext.U
   int.input$`errExternal U (ppm)` <- ext.U.err
   int.input$`External Th (ppm)` <- ext.Th
   int.input$`errExternal Th (ppm)` <- ext.Th.err
@@ -866,7 +866,7 @@ use_DRAC4flint <- function (
   env.input$Mineral <- mineral
   env.input$`Conversion factors` <- conversion.factors
 
-  env.input$`ExternalU (ppm)` <-  env.U
+  env.input$`External U (ppm)` <-  env.U
   env.input$`errExternal U (ppm)` <- env.U.err
   env.input$`External Th (ppm)` <- env.Th
   env.input$`errExternal Th (ppm)` <- env.Th.err
@@ -1056,7 +1056,7 @@ use_DRAC4flint <- function (
   # R.int.Dr.err <- sqrt(sum(temp.int.alpha.err^2, temp.int.beta^2))
   R.int.Dr <- as.numeric(int.output$DRAC$highlights$`Internal doserate (Gy.ka-1)`[1])
   R.int.Dr.err <- as.numeric(int.output$DRAC$highlights$`Internal errdoserate (Gy.ka-1)`[1])
-  
+
   R.ext.Dr <- temp.ext.alpha+temp.ext.beta
   R.ext.Dr.err <- sqrt(sum(temp.ext.alpha.err^2, temp.ext.beta^2))
 

@@ -49,9 +49,6 @@ The file parameters are:  \cr
    \link{character} (with default): Folder containing the file with the luminescene data.}
 }
 }
-\author{
-David Strebler, University of Cologne (Germany).
-}
 \seealso{
 \link{read_BIN2R},
  \link{Risoe.BINfileData2TLum.BIN.File},
@@ -59,4 +56,6 @@ David Strebler, University of Cologne (Germany).
  \link{mod_extract.TL},
  \link{mod_update.dType}.
 }
-
+\author{
+David Strebler, University of Cologne (Germany).
+}

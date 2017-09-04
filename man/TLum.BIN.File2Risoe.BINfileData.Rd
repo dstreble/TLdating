@@ -19,4 +19,3 @@ This function convert \linkS4class{TLum.BIN.File} object into a \linkS4class{Ris
 \author{
 David Strebler
 }
-

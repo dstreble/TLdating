@@ -119,12 +119,22 @@ analyse_TL.plateau <- function(
                                Lx=aLx.a[,uNames != "N" & uDoses != 0],
                                Lx.error=aLx.a.error[,uNames != "N"& uDoses != 0])
 
+  # temp.data <- calc_TL.plateau(Ln=aLx.a[,uNames == "N"],
+  #                              Ln.error=aLx.a.error[,uNames == "N"],
+  #                              Lx=aLx[,uNames != "N" & uDoses != 0],
+  #                              Lx.error=aLx.error[,uNames != "N"& uDoses != 0])
+
   aLx.plateau <- get_TLum.Results(temp.data,"LnLx")
 
   temp.data <- calc_TL.plateau(Ln=aLxTx.a[,uNames == "N"],
                                Ln.error=aLxTx.a.error[,uNames == "N"],
                                Lx=aLxTx.a[,uNames != "N" & uDoses != 0],
                                Lx.error=aLxTx.a.error[,uNames != "N"& uDoses != 0])
+
+  # temp.data <- calc_TL.plateau(Ln=aLxTx.a[,uNames == "N"],
+  #                              Ln.error=aLxTx.a.error[,uNames == "N"],
+  #                              Lx=aLxTx[,uNames != "N" & uDoses != 0],
+  #                              Lx.error=aLxTx.error[,uNames != "N"& uDoses != 0])
 
   aLxTx.plateau <- get_TLum.Results(temp.data,"LnLx")
 

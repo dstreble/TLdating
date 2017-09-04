@@ -3,12 +3,14 @@
 \docType{class}
 \name{TLum.BIN.File-class}
 \alias{TLum.BIN.File-class}
-\alias{get_TLum.BIN.File}
-\alias{get_TLum.BIN.File,TLum.BIN.File-method}
+\alias{show,TLum.BIN.File-method}
+\alias{TLum.BIN.File-class}
+\alias{set_TLum.BIN.File,data.frame,list,list-method}
 \alias{set_TLum.BIN.File}
 \alias{set_TLum.BIN.File,TLum.BIN.File-method}
-\alias{set_TLum.BIN.File,data.frame,list,list-method}
-\alias{show,TLum.BIN.File-method}
+\alias{TLum.BIN.File-class}
+\alias{get_TLum.BIN.File,TLum.BIN.File-method}
+\alias{get_TLum.BIN.File}
 \title{Class \code{"TLum.BIN.File"}}
 \usage{
 \S4method{show}{TLum.BIN.File}(object)
@@ -47,6 +49,7 @@ Class for luminescence curves data.
 
 \item{\code{.RESERVED}}{\link{list}: Object containing list of undocumented raw values for internal use only.}
 }}
+
 \note{
 The code and the structure of this class is based on the \linkS4class{Risoe.BINfileData} class from the \link{Luminescence} package.
 }
@@ -54,4 +57,3 @@ The code and the structure of this class is based on the \linkS4class{Risoe.BINf
 David Strebler
 }
 \keyword{classes}
-

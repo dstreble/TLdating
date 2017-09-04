@@ -21,10 +21,9 @@ plot_remove.preheat(PH.signal, PH.temperatures, PH.times, TL.signal,
 \description{
 This functions plots the results  obtained by mod_remove.preheat
 }
-\author{
-David Strebler
-}
 \seealso{
 \link{mod_remove.preheat}
 }
-
+\author{
+David Strebler
+}

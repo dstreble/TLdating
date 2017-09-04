@@ -24,13 +24,12 @@ This function convert a \linkS4class{TLum.BIN.File} in a \linkS4class{TLum.Analy
 A \linkS4class{TLum.Analysis} object is a list of \linkS4class{TLum.Data.Curve} object.
 It is possible to specify which luminescence curves will be keeped.
 }
-\author{
-David Strebler, University of Cologne (Germany), \cr David Strebler
-}
 \seealso{
 \linkS4class{TLum.Analysis},
  \linkS4class{TLum.BIN.File},
  \linkS4class{TLum.Data.Curve} and
  \link{TLum.BIN.File2TLum.Data.Curve}.
 }
-
+\author{
+David Strebler, University of Cologne (Germany), \cr David Strebler
+}

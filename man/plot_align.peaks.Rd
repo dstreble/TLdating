@@ -33,10 +33,9 @@ This function plots the results obtained by mod_alignPeaks.
    \link{logical}: Maximum temperature which is plotted.}
 }
 }
-\author{
-David Strebler
-}
 \seealso{
 \link{mod_align.peaks}
 }
-
+\author{
+David Strebler
+}

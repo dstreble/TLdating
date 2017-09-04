@@ -29,10 +29,9 @@ Creates a new TLum.Analysis object where the background was removed from the sig
    \link{logical}: If \code{TRUE}, the results will not be plotted.}
 }
 }
-\author{
-David Strebler, University of Cologne (Germany).
-}
 \seealso{
 \link{plot_substract.background}
 }
-
+\author{
+David Strebler, University of Cologne (Germany).
+}

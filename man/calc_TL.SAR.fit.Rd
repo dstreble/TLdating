@@ -61,10 +61,9 @@ The fitting parameters are:  \cr
 \bold{Warning}: This function is an internal function and should not be used except for development purposes.
  Internal functions can be heavily modified and even renamed or removed in new version of the package.
 }
-\author{
-David Strebler, University of Cologne (Germany).
-}
 \seealso{
 \link{analyse_TL.SAR}.
 }
-
+\author{
+David Strebler, University of Cologne (Germany).
+}

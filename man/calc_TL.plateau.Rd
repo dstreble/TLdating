@@ -35,4 +35,3 @@ additive/regenerate signal.
 \author{
 David Strebler, University of Cologne (Germany).
 }
-

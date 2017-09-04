@@ -31,9 +31,6 @@ The plotting parameters are:  \cr
 }
 See also \link{plot_TL.plateau}. \cr
 }
-\author{
-David Strebler, University of Cologne (Germany)
-}
 \references{
 Aitken, M.J. (1985) Thermoluminescence Dating, Academic Press, London \cr
 }
@@ -42,4 +39,6 @@ Aitken, M.J. (1985) Thermoluminescence Dating, Academic Press, London \cr
  \link{calc_TL.plateau},
  \link{analyse_TL.MAAD}
 }
-
+\author{
+David Strebler, University of Cologne (Germany)
+}

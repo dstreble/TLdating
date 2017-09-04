@@ -81,4 +81,4 @@ Collate:
     'call_shinyTLdating.R'
     'call_shinyDRAC.R'
     'TLdating-package.R'
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

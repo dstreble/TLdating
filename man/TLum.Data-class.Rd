@@ -14,4 +14,3 @@ The code and the structure of this class is based on the \linkS4class{RLum.Data}
 David Strebler
 }
 \keyword{classes}
-

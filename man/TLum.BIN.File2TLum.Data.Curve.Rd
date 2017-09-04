@@ -33,4 +33,3 @@ The extract element can be identify either by its id or by its position, run and
 The element that is extracted to be converted into a \linkS4class{TLum.Data.Curve} objet can be identify
  either by its id or by its position, run and set.
 }
-
