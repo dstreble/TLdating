@@ -2,7 +2,7 @@ Package: TLdating
 Type: Package
 Title: Tools for Thermoluminescence Dating
 Version: 0.1.4
-Date: 2017-01-30
+Date: 2017-09-15
 Authors@R: c(
   person("David", "Strebler", role= c("aut","cre"), email= "david.strebler@uni-koeln.de"),
   person("Dominik", "Brill", role = c("ths")),
